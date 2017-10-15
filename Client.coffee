@@ -27,3 +27,5 @@ class Client extends EventEmitter
         this.emit 'error', e
 
       this.ws.start(resolve, reject)
+
+module.exports = Client;
