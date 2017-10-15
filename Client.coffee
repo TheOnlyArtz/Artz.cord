@@ -21,4 +21,9 @@ class Client extends EventEmitter
         this.emit('ready');
 
       this.ws.on 'WSerror', (e) ->
-        
+        if this.readyUnix
+          reject(e);
+
+        this.emit 'error', e
+
+      this.ws.start(resolve, reject)
