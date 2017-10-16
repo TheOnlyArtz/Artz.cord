@@ -1,5 +1,7 @@
 EventEmitter = (require('events').EventEmitter);
-WebSocketManager = (require './WebSocket/WebSocketManager')
+WebSocketManager = (require './WebSocket/WebSocketManager');
+EventHandler = (require './WebSocket/EventHandler')
+
 class Client extends EventEmitter
 
   constructor: () ->
@@ -27,7 +29,7 @@ class Client extends EventEmitter
 
         that.emit 'error', e
 
-      
+
       that.ws.start(resolve, reject)
       console.log that.ws
 module.exports = Client;
