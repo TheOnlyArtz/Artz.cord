@@ -1,5 +1,6 @@
 EventEmitter = (require('events').EventEmitter);
 WebSocket = (require('ws'))
+SocketHandler = (require './SocketHandler');
 
 class WebSocketManager extends EventEmitter
 
@@ -7,6 +8,10 @@ class WebSocketManager extends EventEmitter
     super;
     Object.defineProperty this, 'client', { value: client }
     this.ws.sessionID = null;
+    this.HBTimestamp = 0
+    this.HBT_ACK = true;
+    this.SocketHandler = new SocketHandler(this);
+
   send: (pack) ->
     this.ws.send(JSON.stringify(pack))
 
@@ -43,7 +48,7 @@ class WebSocketManager extends EventEmitter
           "shard": [0, 1],
           } }
           that.send(JSON.stringify(payload))
-      else
+
 
 
 
