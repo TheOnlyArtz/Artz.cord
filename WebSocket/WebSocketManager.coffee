@@ -6,7 +6,7 @@ class WebSocketManager extends EventEmitter
   constructor: (client) ->
     super;
     Object.defineProperty this, 'client', { value: client }
-
+    this.ws.sessionID = null;
   send: (pack) ->
     this.ws.send(JSON.stringify(pack))
 
@@ -14,27 +14,37 @@ class WebSocketManager extends EventEmitter
     that = this
     this.ws = new WebSocket('wss://gateway.discord.gg/?v=6&encoding=json');
 
-    this.ws.onmessage = (packet) ->
-      this.emit 'WSmessage', packet
+    that.ws.onmessage = (packet, flags) ->
+      that.emit 'WSmessage', packet, flags
 
-    this.ws.onclose = (close) ->
-      this.emit 'WSclose', close
+    that.ws.onclose = (close) ->
+      that.emit 'WSclose', close
 
-    this.ws.onerror = (e) ->
-      this.emit 'WSerror', e
+    that.ws.onerror = (e) ->
+      that.emit 'WSerror', e
 
-    this.ws.onopen = (open) ->
-      this.emit 'WSopen', open
+    that.ws.onopen = (open) ->
+      that.emit 'WSopen', open
+      if this.ws.sessionID == null
 
-      payload = {"op" : 2, "d": {
-        "token": that.client.token.toString(),
-        "properties": {
-          '$os' : require('os').platform(),
-          '$browser' : 'ArtzyCord',
-          '$device'  : 'One Plus 5',
-        },
-        "compress": false
-        } }
-      this.send(JSON.stringify(payload))
+        payload = {"op" : 2, "d": {
+          "token": that.client.token.toString(),
+          "properties": {
+            '$os' : require('os').platform(),
+            '$browser' : 'ArtzyCord',
+            '$device'  : 'One Plus 5',
+            "$referrer":"",
+            "$referring_domain":""
+
+          },
+
+          'compress': false,
+          'large_threshold' : 250,
+          "shard": [0, 1],
+          } }
+          that.send(JSON.stringify(payload))
+      else
+
+
 
   module.exports = WebSocketManager;
