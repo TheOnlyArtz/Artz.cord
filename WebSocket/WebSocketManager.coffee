@@ -7,10 +7,11 @@ class WebSocketManager extends EventEmitter
     super;
     Object.defineProperty this, 'client', { value: client }
 
-  send: (packet) ->
-    this.ws.send(JSON.stringify(packet))
+  send: (pack) ->
+    this.ws.send(JSON.stringify(pack))
 
   start: () ->
+    that = this
     this.ws = new WebSocket('wss://gateway.discord.gg/?v=6&encoding=json');
 
     this.ws.onmessage = (packet) ->
@@ -25,14 +26,15 @@ class WebSocketManager extends EventEmitter
     this.ws.onopen = (open) ->
       this.emit 'WSopen', open
 
-      this.send({op : 2, d: {
-        token: this.client.token,
-        properties: {
+      payload = {"op" : 2, "d": {
+        "token": that.client.token.toString(),
+        "properties": {
           '$os' : require('os').platform(),
           '$browser' : 'ArtzyCord',
           '$device'  : 'One Plus 5',
         },
-        compress: false
-        } })
+        "compress": false
+        } }
+      this.send(JSON.stringify(payload))
 
-  module.exports = WebSocketHandler;
+  module.exports = WebSocketManager;
