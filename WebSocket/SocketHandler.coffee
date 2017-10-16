@@ -1,7 +1,8 @@
 # Made by Charlotte Ddounis AKA Neko
 # https://github.com/CharlotteDunois/NekoDAPI/blob/master/wshandler.js
 # With her permission
-
+fs = require('fs')
+path = require('path')
 class SocketHandler
 
   constructor: (SocketManager) ->
@@ -9,45 +10,42 @@ class SocketHandler
 
     this.handlers = new Map;
     this.sequence = null;
-    
+
     this.OPCodes = {
-      DISPATCH: 0,
-      HEARTBEAT: 1,
-      IDENTIFY: 2,
-      PRESENCE: 3,
-      VOICE_STATE: 4,
-      VOICE_PING: 5,
-      RESUME: 6,
-      RECONNECT: 7,
-      REQUEST_MEMBERS: 8,
-      INVALIDATE_SESSION: 9,
-      HELLO: 10,
-      HEARTBEAT_ACK: 11,
-      GUILD_SYNC: 12
+      0: "DISPATCH",
+      1: "HEARTBEAT",
+      2: "IDENTIFY",
+      3: "PRESENCE",
+      4: "VOICE_STATE",
+      5: "VOICE_PING",
+      6: "RESUME",
+      7: "RECONNECT",
+      8: "REQUEST_MEMBERS",
+      9: "INVALIDATE_SESSION",
+      10: "HELLO",
+      11: "HEARTBEAT_ACK",
+      12: "GUILD_SYNC"
     };
 
-    BasicPath = '../SocketHandlers'
+    BasicPath = path.join(__dirname, '..', 'SocketHandlers');
     files = fs.readdirSync(BasicPath)
 
-    for file of files
+    for file in files
       if file == 'basic.coffee'
         continue
 
-      name = file.substr 0, (file.length - 3)
-      handlerPath = BasicPath + file
-
+      name = file
+      handlerPath = require(path.join(BasicPath, file));
       this.handlers.set name, new handlerPath(this);
 
   handle: (packet) ->
-    if packet intanceof Buffer
+    packet = packet.data
+    if packet instanceof Buffer
       packet = packet.toString('utf8')
 
     packet = JSON.parse(packet);
 
-    if packet.s
-      this.sequence = packet.s
-
-    name = OPCodes[packet.s].toLowerCase();
+    name = this.OPCodes[packet.op].toLowerCase();
     if this.handlers.has name
       this.handlers.get(name).handle(packet)
 module.exports = SocketHandler

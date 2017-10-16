@@ -7,6 +7,7 @@ class Client extends EventEmitter
   constructor: () ->
     super;
     this.ws = new WebSocketManager(this);
+    this.EventHandling = new EventHandler(this)
 
     this.readyUnix = null;
     this.token = null;
@@ -29,7 +30,5 @@ class Client extends EventEmitter
 
         that.emit 'error', e
 
-
       that.ws.start(resolve, reject)
-      console.log that.ws
 module.exports = Client;
