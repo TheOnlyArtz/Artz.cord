@@ -6,7 +6,7 @@ path = require('path')
 class SocketHandler
 
   constructor: (SocketManager) ->
-    Object.defineProperty(this, 'SocketHandler', { value: SocketHandler });
+    Object.defineProperty(this, 'SocketManager', { value: SocketManager });
 
     this.handlers = new Map;
     this.sequence = null;
@@ -46,6 +46,6 @@ class SocketHandler
     packet = JSON.parse(packet);
 
     name = this.OPCodes[packet.op].toLowerCase();
-    if this.handlers.has name
-      this.handlers.get(name).handle(packet)
+    if this.handlers.has name + '.coffee'
+      this.handlers.get(name + '.coffee').handle(packet)
 module.exports = SocketHandler

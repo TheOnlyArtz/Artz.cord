@@ -8,12 +8,14 @@ class HelloHandler extends Basic
     # wshandler.wsmanager.on 'WSclose', () ->
       # this.close()
   handle: (packet) ->
+    that = this
     this.heartbeat = setInterval ->
-      this.wshandler.wsmanager.ws_heartbeat_timestamp = Date.now();
-      this.wshandler.wsmanager.ws_heartbeat_ack = false;
+      that.wshandler.SocketManager.HBTimestamp = Date.now();
+      that.wshandler.SocketManager.HBT_ACK = false;
 
-      this.wshandler.wsmanager.send({ op: 1, d: this.wshandler.sequence });
-     d.heartbeat_interval
+      if that.wshandler.SocketManager.open
+        that.wshandler.SocketManager.ws.send(JSON.stringify({ op: 1, d: that.wshandler.sequence, s: null, t: null }));
+     , packet.d.heartbeat_interval
 
   close: () ->
     if heartbeat

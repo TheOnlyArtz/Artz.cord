@@ -6,7 +6,7 @@ class HeartBeat extends Basic
     super(wshandler)
 
   handle: (packet) ->
-    this.wshandler.wsmanager.send({
+    this.wshandler.wsmanager.ws.send({
        op: 11,
        d: null,
        t: null,

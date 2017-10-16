@@ -1,13 +1,11 @@
 EventEmitter = (require('events').EventEmitter);
 WebSocketManager = (require './WebSocket/WebSocketManager');
-EventHandler = (require './WebSocket/EventHandler')
 
 class Client extends EventEmitter
 
   constructor: () ->
     super;
     this.ws = new WebSocketManager(this);
-    this.EventHandling = new EventHandler(this)
 
     this.readyUnix = null;
     this.token = null;

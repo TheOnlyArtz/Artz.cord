@@ -13,23 +13,23 @@ class WebSocketManager extends EventEmitter
 
     this.SocketHandler = new SocketHandler(this);
 
-  send: (pack) ->
-    this.ws.send(JSON.stringify(pack))
 
   start: () ->
     that = this
     this.ws = new WebSocket('wss://gateway.discord.gg/?v=6&encoding=json');
 
-    that.ws.onmessage = (packet, flags) ->
-      that.SocketHandler.handle(packet)
 
     that.ws.onclose = (close) ->
       that.emit 'WSclose', close
+
+    that.ws.onmessage = (packet, flags) ->
+      that.SocketHandler.handle(packet)
 
     that.ws.onerror = (e) ->
       that.emit 'WSerror', e
 
     that.ws.onopen = (open) ->
+      that.open = true
       that.emit 'WSopen', open
 
       payload = {"op" : 2, "d": {
@@ -47,8 +47,8 @@ class WebSocketManager extends EventEmitter
           'large_threshold' : 250,
           "shard": [0, 1],
           } }
-
       that.ws.send(JSON.stringify(payload))
+
 
 
   module.exports = WebSocketManager;

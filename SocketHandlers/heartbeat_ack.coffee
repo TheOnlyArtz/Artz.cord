@@ -6,5 +6,5 @@ class HeartBeatACK extends Basic
     super(wshandler)
 
   handle: (packet) ->
-    this.wshandler.wsmanager.ws.HBT_ACK = true;
+    this.wshandler.SocketManager.HBT_ACK = true;
 module.exports = HeartBeatACK;
