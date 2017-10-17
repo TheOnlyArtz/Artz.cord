@@ -1,8 +1,8 @@
 /*
   Cache channels preventing API spam
- */
+*/
 class ChannelCaching {
-  constructor() {
+  constructor(iterable) {
 
   }
 }
