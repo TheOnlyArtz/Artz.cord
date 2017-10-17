@@ -8,9 +8,10 @@ module.exports = class Message {
     this.id = data.id || null;
     this.channelID = data.channel_id || null // TODO: Make it new TextChannel
     this.author = data.author || null
-    this.mentions = new Map(data.mentions);
-    this.roleMentions = new Map(data.mention_roles);
-    this.attachments = new Map(data.attachments)
-    this.embeds = new Map(data.embeds);
+    this.mentions = data.mentions || [];
+    this.roleMentions = data.roleMentions || [];
+    this.attachments = data.attachments;
+    this.embeds = data.embeds;
+    this.guild = 'Tuned' 
   }
 }
