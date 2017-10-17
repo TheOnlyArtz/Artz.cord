@@ -11,7 +11,6 @@ module.exports = class Message {
     this.mentions = data.mentions || [];
     this.roleMentions = data.roleMentions || [];
     this.attachments = data.attachments;
-    this.embeds = data.embeds;
-    this.guild = 'Tuned' 
+    this.embeds = data.embeds; 
   }
 }
