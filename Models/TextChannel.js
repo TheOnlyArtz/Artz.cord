@@ -21,7 +21,11 @@ class TextChannel {
     if (!options.markup) content = toSend;
 
     if (typeof options.markup !== 'undefined' && (typeof options.markup !== 'boolean' || options.markup === true)) {
-
+        content = `
+        \`\`\`${typeof options.markup === true ? '' : options.markup}
+          ${toSend}
+        \`\`\`
+        `
       }
 
     }
