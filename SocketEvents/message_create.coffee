@@ -8,7 +8,7 @@ class MessageCreateEvent extends Basic
     super(client);
 
   handle: (packet) ->
-    guild = new Message(this.client, packet);
+    Message = new Message(this.client, packet);
     this.client.emit('Message_Create', Message);
 
 module.exports = MessageCreateEvent

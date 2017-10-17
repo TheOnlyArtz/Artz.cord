@@ -1,5 +1,7 @@
 EventEmitter = (require('events').EventEmitter);
 WebSocketManager = (require './WebSocket/WebSocketManager');
+Function::property = (prop, desc) ->
+  Object.defineProperty @prototype, prop, desc
 
 class Client extends EventEmitter
 
@@ -34,5 +36,7 @@ class Client extends EventEmitter
 
       that.ws.start(resolve, reject)
 
+  @property 'uptime',
+    get: -> Date.now() - this.readyUnix
 
 module.exports = Client;

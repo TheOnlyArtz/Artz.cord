@@ -11,6 +11,5 @@ class ReadyEvent extends Basic
     this.client.user = new ClientUser(this.client, data)
     this.client.ws.wsSessionID = data.session_id;
     this.client.emit('ready')
-    this.client.readyUnix = Date.now()
-
+    this.client.readyUnix = Date.now();
 module.exports = ReadyEvent

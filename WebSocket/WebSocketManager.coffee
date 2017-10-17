@@ -10,7 +10,7 @@ class WebSocketManager extends EventEmitter
     this.wsSessionID = null;
     this.HBTimestamp = 0
     this.HBT_ACK = true;
-
+    
     this.SocketHandler = new SocketHandler(this);
 
 
@@ -31,7 +31,7 @@ class WebSocketManager extends EventEmitter
     that.ws.onopen = (open) ->
       that.open = true
       that.emit 'WSopen', open
-      
+
       payload = {"op" : 2, "d": {
           "token": that.client.token.toString(),
           "properties": {
