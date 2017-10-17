@@ -11,12 +11,12 @@ class ChannelCaching {
     let that = this;
     this.iterable.forEach(i => {
       i.channels.forEach(o => {
-        that.client.channels.set(o.id, that._cachingObj(o));
+        that.client.channels.set(o.id, that._cachingObj(o, i));
       });
     });
   };
 
-  _cachingObj(data) {
+  _cachingObj(data, guildData) {
 
     let type = data.type
     switch (type) {
@@ -40,6 +40,7 @@ class ChannelCaching {
     }
 
     let initObj = {
+      guildID              : guildData.id,
       type                 : type,
       topic                : data.topic,
       position             : data.position,
