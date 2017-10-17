@@ -8,7 +8,6 @@ class Client extends EventEmitter
     this.ws = new WebSocketManager(this);
 
     this.readyUnix = null;
-    this.token = null;
 
   login: (token) ->
     that = this
@@ -19,7 +18,6 @@ class Client extends EventEmitter
         if !this.readyUnix
           resolve();
 
-        that.readyUnix = Date.now;
         that.emit 'ready'
 
       that.ws.on 'WSerror', (e) ->
