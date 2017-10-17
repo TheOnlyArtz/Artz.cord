@@ -8,6 +8,8 @@ class GuildCreateEvent extends Basic
     super(client);
 
   handle: (packet) ->
-    guild = new Guild(client, data);
+    guild = new Guild(this.client, packet);
     this.client.guilds.set(guild.id, guild);
     this.client.emit('Guild_Create', guild);
+
+module.exports = GuildCreateEvent

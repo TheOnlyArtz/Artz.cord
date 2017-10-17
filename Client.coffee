@@ -7,8 +7,14 @@ class Client extends EventEmitter
     super;
     this.ws = new WebSocketManager(this);
 
-    this.readyUnix = null;
 
+
+    this.users = new Map
+    this.channels = new Map;
+    this.guilds = new Map;
+
+    this.readyUnix = null;
+    this.uptime = Date.now() - this.readyUnix;
   login: (token) ->
     that = this
     that.token = "#{token}"
@@ -27,4 +33,6 @@ class Client extends EventEmitter
         that.emit 'error', e
 
       that.ws.start(resolve, reject)
+
+
 module.exports = Client;
