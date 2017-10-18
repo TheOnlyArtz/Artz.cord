@@ -5,7 +5,6 @@ class ClientUser {
     this.discriminator = "#" + data.user.discriminator
     this.verified = data.user.verified
     this.bot = data.user.bot
-    console.log();
   };
 
   get tag() {
