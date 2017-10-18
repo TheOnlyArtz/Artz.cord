@@ -39,4 +39,6 @@ class Client extends EventEmitter
   @property 'uptime',
     get: -> Date.now() - this.readyUnix
 
+  @property 'invite_link',
+    get: -> "https://discordapp.com/oauth2/authorize/?permissions=0&scope=bot&client_id=#{that.id}"
 module.exports = Client;
