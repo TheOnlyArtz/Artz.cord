@@ -19,25 +19,6 @@ class ChannelCaching {
   _cachingObj(data, guildData) {
 
     let type = data.type
-    switch (type) {
-      case 0:
-        type = "Text Channel";
-        break;
-      case 1:
-        type = "Direct Messages";
-        break;
-      case 2:
-        type = "Voice Channel";
-        break;
-      case 3:
-        type = "DM Group";
-        break;
-      case 4:
-        type = "Guild Category";
-        break;
-      default: "unknown";
-
-    }
 
     let initObj = {
       guildID              : guildData.id,
