@@ -1,6 +1,9 @@
 /*
   Cache channels preventing API spam
 */
+const path = require('path')
+const GuildChannel = require(path.join(__dirname, '..', 'Models', 'GuildChannel.js'));
+
 class ChannelCaching {
   constructor(client, iterable) {
     this.iterable = iterable;
@@ -33,7 +36,7 @@ class ChannelCaching {
       id                   : data.id
     }
 
-    return initObj
+    return new GuildChannel(this.client, initObj)
   }
 
 }
