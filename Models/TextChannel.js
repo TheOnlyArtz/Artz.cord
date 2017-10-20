@@ -1,4 +1,4 @@
-const {get, put, patch, post} = require('snekfetch')
+const {get, put, patch, post} = require('snekfetch');
 class TextChannel {
   constructor(client, data) {
     this.type = data.type;
@@ -23,36 +23,6 @@ class TextChannel {
   //   };
   // };
 
-  send(toSend, options) {
-    let that = this;
-    return new Promise(async function(resolve, reject) {
-    let payload = {};
-    if (!toSend) throw Error('Can\'t send an empty message');
-    if (!options) options = {}
-    if (!options.tts) options.tts = false;
-
-    if (typeof options.markup !== 'undefined' && (typeof options.markup !== 'boolean' || options.markup === true)) {
-        payload.content = `
-        \`\`\`${typeof options.markup === true ? '' : options.markup}
-          ${toSend}
-        \`\`\`
-        `
-      } else {
-        payload.content = toSend;
-      }
-
-    if (typeof options.tts === 'boolean' && options.tts === true) {
-        payload.tts = true;
-      } else {
-        payload.tts = false;
-      }
-    post(`https://discordapp.com/api/v6/channels/${that.data.id}/messages`)
-      .set('Authorization', 'Bot ' + that.client.token)
-      .send(payload)
-      .then(r => resolve(r.body))
-      .catch(e => reject(e))
-    });
-  }
 }
 
 module.exports = TextChannel

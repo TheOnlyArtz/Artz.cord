@@ -1,5 +1,6 @@
 EventEmitter = (require('events').EventEmitter);
 WebSocketManager = (require './WebSocket/WebSocketManager');
+RequestHandler = (require './API/RequestHandler.js')
 Function::property = (prop, desc) ->
   Object.defineProperty @prototype, prop, desc
 
@@ -14,8 +15,10 @@ class Client extends EventEmitter
     this.users = new Map
     this.channels = new Map;
     this.guilds = new Map;
-
     this.readyUnix = null;
+
+    this.ApiRequest = new RequestHandler;
+
     this.uptime = Date.now() - this.readyUnix;
   login: (token) ->
     that = this
@@ -40,5 +43,6 @@ class Client extends EventEmitter
     get: -> Date.now() - this.readyUnix
 
   @property 'invite_link',
-    get: -> "https://discordapp.com/oauth2/authorize/?permissions=0&scope=bot&client_id=#{that.id}"
+    get: -> "https://discordapp.com/oauth2/authorize/?permissions=0&scope=bot&client_id=#{this.id}"
+
 module.exports = Client;
