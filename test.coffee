@@ -6,4 +6,4 @@ Client.on 'ready', () ->
   console.log 'Ready to work! as ' + Client.user.tag
 
 Client.on 'Message_Create', (message) ->
-  console.log message.content;
+  console.log(Client)
