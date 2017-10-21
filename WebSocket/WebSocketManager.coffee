@@ -29,7 +29,6 @@ class WebSocketManager extends EventEmitter
       that.emit 'WSerror', e
 
     that.ws.onopen = (open) ->
-      that.open = true
       that.emit 'WSopen', open
 
       payload = {"op" : 2, "d": {
@@ -42,7 +41,15 @@ class WebSocketManager extends EventEmitter
             "$referring_domain":""
 
           },
-
+          "presence": {
+            "game": {
+              "name": null,
+              "type": 0,
+            },
+            'status': 'online',
+            'since': null,
+            'afk': false,
+          },
           'compress': false,
           'large_threshold' : 250,
           "shard": [0, 1],

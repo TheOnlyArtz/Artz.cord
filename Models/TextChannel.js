@@ -3,7 +3,8 @@ const {get, put, patch, post} = require('snekfetch');
 class TextChannel {
 	constructor(client, data) {
 		this.type = data.type;
-		this.guildID = data.guild_id;
+		this.id = data.id;
+		this.guildID = data.guildID;
 		this.name = data.name;
 		this.position = data.position;
 		this.permissionOverwrites = data.permission_overwrites;

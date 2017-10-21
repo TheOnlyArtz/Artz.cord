@@ -2,6 +2,7 @@ const path = require('path');
 
 const Guild = require(path.join(__dirname, '..', 'Models', 'Guild.js'));
 const GuildChannel = require(path.join(__dirname, '..', 'Models', 'GuildChannel.js'));
+const User = require(path.join(__dirname, '..', 'Models', 'User.js'));
 module.exports = class Message {
 	constructor(client, data) {
 		this.tts = data.tts;
@@ -11,7 +12,7 @@ module.exports = class Message {
 		this.content = data.content;
 		this.id = data.id;
 		this.channelID = data.channel_id; // TODO: Make it new TextChannel
-		this.author = data.author;
+		this.author = new User(client, data.author);
 		this.mentions = data.mentions || [];
 		this.roleMentions = data.roleMentions || [];
 		this.attachments = data.attachments || [];

@@ -1,4 +1,4 @@
-# Made by Charlotte Ddounis AKA Neko
+# Made by Charlotte Dounis AKA Neko
 # https://github.com/CharlotteDunois/NekoDAPI/blob/master/wshandler.js
 # With her permission
 fs = require('fs')

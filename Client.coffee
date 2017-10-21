@@ -1,17 +1,14 @@
 EventEmitter = (require('events').EventEmitter);
 WebSocketManager = (require './WebSocket/WebSocketManager');
-RequestHandler = (require './API/RequestHandler.js')
 Function::property = (prop, desc) ->
   Object.defineProperty @prototype, prop, desc
 
 class Client extends EventEmitter
 
-  constructor: (options = []) ->
+  constructor: (options = {}) ->
     super;
     this.ws = new WebSocketManager(this);
-    this.api = new RequestHandler;
 
-    this.options = options.concat(options)
 
     this.users = new Map
     this.channels = new Map;
@@ -25,6 +22,9 @@ class Client extends EventEmitter
     that = this
     that.token = "#{token}"
     return new Promise (resolve, reject) ->
+
+      that.ws.on 'WSclose', (e) ->
+        that.emit 'close', e
 
       that.ws.on 'ready', () ->
         if !this.readyUnix
@@ -47,7 +47,7 @@ class Client extends EventEmitter
     get: -> "https://discordapp.com/oauth2/authorize/?permissions=0&scope=bot&client_id=#{this.id}"
 
   getOption: (name, defaultOpt = null) ->
-    if this.options[name]
+    if this.options instanceof Object && this.options[name]
       return this.options[name]
 
     return defaultOpt

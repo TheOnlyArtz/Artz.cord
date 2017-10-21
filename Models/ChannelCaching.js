@@ -25,7 +25,7 @@ class ChannelCaching {
 
 		const initObj = {
 			guildID: guildData.id,
-			type,
+			type: data.type,
 			topic: data.topic,
 			position: data.position,
 			permissionOverwrites: data.permission_overwrites,
