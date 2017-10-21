@@ -9,7 +9,7 @@ The most shittiest API *rapper out there.
 const discord = require('artzycord');
 const Client = new discord();
 
-discord.on('ready', () => {
+client.on('ready', () => {
 	client.user.setGame({
 		name: "With ArtzyCord"
 	});
