@@ -15,7 +15,7 @@ class APIManager {
     this.queueRunning = false;
   }
 
-  _addQueueItem(method, endpoint, data = null, timeout = null, files = null) {
+  makeRequest(method, endpoint, data = null, timeout = null, files = null) {
       const that = this;
       let RequestPromise =
         new Promise(function(resolve, reject) {
@@ -108,6 +108,9 @@ class APIManager {
       if (response.headers && response.headers['x-ratelimit-remaining']) {
           this.ratelimit.retry = response.headers['x-ratelimit-reset']
           this.ratelimit.remaining = response.headers['x-ratelimit-remaining']
+      }
+      if (response.error) {
+          console.log('error accorrrd');
       }
     })
   }
