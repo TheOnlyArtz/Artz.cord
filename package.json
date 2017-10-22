@@ -1,0 +1,30 @@
+{
+  "name": "artzycord",
+  "version": "0.0.1",
+  "description": "An API wrapper for the Discord API made with ♥",
+  "main": "Client.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheOnlyArtz/ArtzyCord.git"
+  },
+  "keywords": [
+    "API",
+    "Discord",
+    "wrapper",
+    "js",
+    "node",
+    "websocket",
+    "free",
+    "fast",
+    "new"
+  ],
+  "author": "TheOnlyArtz/AmitKatz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TheOnlyArtz/ArtzyCord/issues"
+  },
+  "homepage": "https://github.com/TheOnlyArtz/ArtzyCord#readme"
+}
