@@ -1,5 +1,5 @@
 EventEmitter = (require('events').EventEmitter);
-WebSocketManager = (require './WebSocket/WebSocketManager');
+WebSocketManager = require ('./WebSocket/WebSocketManager')
 Function::property = (prop, desc) ->
   Object.defineProperty @prototype, prop, desc
 

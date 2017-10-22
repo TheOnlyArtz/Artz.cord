@@ -29,25 +29,25 @@ class ClientUser extends Structure {
 		if (!options) {
 			throw new Error('You must specify the game object');
 		}
-		let game = {
+		const game = {
 			game: {
 				name: options.name
 			}
 		};
 
 		if (options.url) {
-			game.game['url'] = options.url;
-			game.game['type'] = 1;
+			game.game.url = options.url;
+			game.game.type = 1;
 		}
 
-		this._setPresence(game)
+		this._setPresence(game);
 	}
 
 	setStatus(options) {
 		if (!options) {
 			throw new Error('You must specify the status.');
 		}
-		if (!options instanceof String) {
+		if (!(options instanceof String)) {
 			throw new TypeError('Status can\'t be something else than a string.');
 		}
 

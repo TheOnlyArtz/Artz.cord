@@ -26,5 +26,9 @@
   "bugs": {
     "url": "https://github.com/TheOnlyArtz/ArtzyCord/issues"
   },
-  "homepage": "https://github.com/TheOnlyArtz/ArtzyCord#readme"
+  "homepage": "https://github.com/TheOnlyArtz/ArtzyCord#readme",
+  "dependencies": {
+    "unirest": "^0.5.1",
+    "ws": "^3.2.0"
+  }
 }
