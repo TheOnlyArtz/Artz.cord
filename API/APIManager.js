@@ -22,7 +22,6 @@ class APIManager {
           const item = {data, method, endpoint, resolve, reject}
           that.queue.push(item)
           if (!that.queueRunning) {
-            console.log(that);
               that.startQueue();
           };
         });
@@ -71,48 +70,66 @@ class APIManager {
   }
 
   async APIRequest(method, endpoint, data, options, files) {
-    const url = `${constants.HTTP.url}/v${constants.HTTP.version}/${endpoint}`;
+    let that = this;
+    return new Promise((resolve, reject) => {
 
-    const headers = {
-      "Authorization" : "Bot " + this.client.token,
-      'User-Agent': 'TheOnlyArtz/ArtzyCord https://github.com/TheOnlyArtz/ArtzyCord/',
-    }
-    const request = unirest[method](url)
+      const url = `${constants.HTTP.url}/v${constants.HTTP.version}/${endpoint}`;
+
+      const headers = {
+        "Authorization" : "Bot " + that.client.token,
+        'User-Agent': 'TheOnlyArtz/ArtzyCord https://github.com/TheOnlyArtz/ArtzyCord/',
+        "Content-type": "application/json"
+      }
+      const request = unirest[method](url)
 
 
-    if (options && options.reason) {
-      headers['X-Audit-Log-Reason'] = encodeURIComponent(this.options.reason)
-    }
-    request.headers(headers);
+      if (options && options.reason) {
+        headers['X-Audit-Log-Reason'] = encodeURIComponent(that.options.reason)
+      }
+      request.headers(headers);
 
-    if (files && files instanceof Array) {
+      if (files && files instanceof Array) {
 
-      files.forEach(o => {
-        if (o instanceof Object) {
-          throw Error('Files must be objects including name and path as params.')
+        files.forEach(o => {
+          if (o instanceof Object) {
+            throw Error('Files must be objects including name and path as params.')
+          }
+          if (o.name && o.path) {
+            request.attach(o.name, o.path)
+
+          } else {
+            return Error('Please check file parameters again.')
+          }
+        })
+      }
+
+      if (data && data instanceof Object) {
+        request.send(JSON.stringify(data))
+      }
+
+      request.end(response => {
+        if (response.headers && response.headers['x-ratelimit-remaining']) {
+            that.ratelimit.retry = response.headers['x-ratelimit-reset']
+            that.ratelimit.remaining = response.headers['x-ratelimit-remaining']
         }
-        if (o.name && o.path) {
-          request.attach(o.name, o.path)
-
-        } else {
-          return Error('Please check file parameters again.')
+        if (response.error || response.body.errors) {
+          if (response.body.errors) {
+            const err = new Error(response.body.errors.name._errors[0].message);
+            err.code = response.body.errors.name._errors[0].code;
+            reject(err)
+          } else {
+            const err = new Error(response.body.message);
+            err.code = response.body.message;
+            err.status = response.status || null;
+            reject(err)
+          }
         }
+        if (response.body && !response.error) {
+            resolve(response.body)
+        }
+
       })
-    }
-
-    if (data && data instanceof Object) {
-      request.send(JSON.stringify(data))
-    }
-
-    request.end(response => {
-      if (response.headers && response.headers['x-ratelimit-remaining']) {
-          this.ratelimit.retry = response.headers['x-ratelimit-reset']
-          this.ratelimit.remaining = response.headers['x-ratelimit-remaining']
-      }
-      if (response.error) {
-          console.log('error accorrrd');
-      }
-    })
+    });
   }
 }
 module.exports = APIManager;
