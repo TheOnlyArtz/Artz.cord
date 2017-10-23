@@ -8,7 +8,7 @@ const GuildChannel = require(path.join(__dirname, '..', 'Models', 'GuildChannel.
 class ChannelCaching {
 	constructor(client, iterable) {
 		this.iterable = iterable;
-		this.client = client;
+		Object.defineProperty(this, 'client', { value: client });
 	}
 
 	_cache() {

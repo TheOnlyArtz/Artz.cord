@@ -1,7 +1,8 @@
 class Structure {
 	constructor(client) {
-		this.client = client;
+		Object.defineProperty(this, 'client', { value: client });
 	}
 }
+
 
 module.exports = Structure;

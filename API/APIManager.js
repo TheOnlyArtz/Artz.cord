@@ -6,7 +6,7 @@ class APIManager {
     Object.defineProperty(this, 'client', { value: client });
 
     this.endpoints = constants
-    
+
     this.ratelimit = {
       retry     : 0,
       remaining : -1
@@ -115,7 +115,7 @@ class APIManager {
             that.ratelimit.remaining = response.headers['x-ratelimit-remaining']
         }
         if (response.error || response.body.errors) {
-          if (response.body.errors) {
+          if (response.body && response.body.errors) {
             const err = new Error(response.body.errors.name._errors[0].message);
             err.code = response.body.errors.name._errors[0].code;
             reject(err)

@@ -1,5 +1,4 @@
 const TextChannel = require('./TextChannel.js');
-
 class GuildChannel {
 	constructor(client, data) {
 		switch (data.type) {

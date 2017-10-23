@@ -6,14 +6,13 @@ class TextChannel {
 		this.guildID = data.guildID;
 		this.name = data.name;
 		this.position = data.position;
-		this.permissionOverwrites = data.permission_overwrites;
+		this.permissionOverwrites = data.permissionOverwrites;
 		this.nsfw = data.nsfw;
 		this.topic = data.topic;
-		this.lastMessageID = this.last_message_id;
-		this.parentMessageID = data.parent_id;
+		this.lastMessageID = data.lastMessageID;
+		this.parentChannelID = data.parentChannelID;
 
-		this.client = client;
-		this.data = data;
+		Object.defineProperty(this, 'client', { value: client });
 	}
 
 	async createInviteLink(options) {
