@@ -1,5 +1,6 @@
 EventEmitter = (require('events').EventEmitter);
 WebSocketManager = require ('./WebSocket/WebSocketManager')
+APIManager = require('./API/APIManager.js')
 Function::property = (prop, desc) ->
   Object.defineProperty @prototype, prop, desc
 
@@ -8,7 +9,7 @@ class Client extends EventEmitter
   constructor: (options = {}) ->
     super;
     this.ws = new WebSocketManager(this);
-
+    this.APIManager = new APIManager(this)
 
     this.users = new Map
     this.channels = new Map;

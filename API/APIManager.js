@@ -5,6 +5,8 @@ class APIManager {
   constructor(client) {
     Object.defineProperty(this, 'client', { value: client });
 
+    this.endpoints = constants
+    
     this.ratelimit = {
       retry     : 0,
       remaining : -1

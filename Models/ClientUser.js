@@ -47,7 +47,7 @@ class ClientUser extends Structure {
 		if (!options) {
 			throw new Error('You must specify the status.');
 		}
-		if (!(options instanceof String)) {
+		if (!options instanceof String) {
 			throw new TypeError('Status can\'t be something else than a string.');
 		}
 
