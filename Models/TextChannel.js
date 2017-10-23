@@ -1,5 +1,4 @@
-const {get, put, patch, post} = require('snekfetch');
-
+const Invite = require('./Invite.js');
 class TextChannel {
 	constructor(client, data) {
 		this.type = data.type;
@@ -17,14 +16,14 @@ class TextChannel {
 		this.data = data;
 	}
 
-	createInviteLink(options) {
+	async createInviteLink(options) {
 		let that = this;
 		return new Promise(async (resolve, reject) => {
 
 			if (!options instanceof Object) {
 					reject('ERROR: The invite options must come in an object.');
 			}
-			
+
 			try {
 
 				let res = await that.client.APIManager.makeRequest(
@@ -33,7 +32,7 @@ class TextChannel {
 					 options
 				 );
 
-				resolve(res);
+				resolve(new Invite(that.client, res));
 			} catch (e) {
 				reject(e);
 			}
