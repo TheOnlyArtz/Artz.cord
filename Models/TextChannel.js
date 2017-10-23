@@ -24,6 +24,7 @@ class TextChannel {
 			if (!options instanceof Object) {
 					reject('ERROR: The invite options must come in an object.');
 			}
+			
 			try {
 
 				let res = await that.client.APIManager.makeRequest(
@@ -32,9 +33,9 @@ class TextChannel {
 					 options
 				 );
 
-				resolve(res)
+				resolve(res);
 			} catch (e) {
-				reject(e)
+				reject(e);
 			}
 
 		});
