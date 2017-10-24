@@ -7,8 +7,8 @@ class TextBasedChannel extends Structure {
 
 		this.id = channel.id;
 		this.type = channel.type;
-		this.guildID = channel.guildID;
-		this.lastMessageID = channel.lastMessageID;
+		this.guildID = channel.guildID || null;
+		this.lastMessageID = channel.lastMessageID || channel.last_message_id;
 		this.createdTimestamp = Snowflake.deconstruct(this.id).timestamp;
 	}
 }
