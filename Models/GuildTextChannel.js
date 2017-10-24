@@ -1,9 +1,8 @@
 const Invite = require('./Invite.js');
-class TextChannel {
+const TextBasedChannel = require('./TextBasedChannel.js')
+class GuildTextChannel extends TextBasedChannel{
 	constructor(client, data) {
-		this.type = data.type;
-		this.id = data.id;
-		this.guildID = data.guildID;
+		super(client, data)
 		this.name = data.name;
 		this.position = data.position;
 		this.permissionOverwrites = data.permissionOverwrites;
@@ -11,7 +10,6 @@ class TextChannel {
 		this.topic = data.topic;
 		this.lastMessageID = data.lastMessageID;
 		this.parentChannelID = data.parentChannelID;
-
 		Object.defineProperty(this, 'client', { value: client });
 	}
 
@@ -41,4 +39,4 @@ class TextChannel {
 
 }
 
-module.exports = TextChannel;
+module.exports = GuildTextChannel;

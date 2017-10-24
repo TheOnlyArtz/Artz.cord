@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/TheOnlyArtz/ArtzyCord#readme",
   "dependencies": {
+    "long": "^3.2.0",
     "unirest": "^0.5.1",
     "ws": "^3.2.0"
   }

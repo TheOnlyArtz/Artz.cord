@@ -5,7 +5,7 @@ const User = require(path.join(__dirname, '..', 'Models', 'User.js'));
 module.exports = class Invite {
 	constructor(client, data) {
     this.inviter = new User(client, data.inviter);
-    this.guild = new Guild(client, client.guilds.get(data.guild.id));
+    this.guild = client.guilds.get(data.guild.id);
     this.inviteCode = data.code;
     this.createdTimestamp = data.created_at;
     this.uses = data.uses;

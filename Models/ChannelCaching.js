@@ -3,7 +3,7 @@
 */
 const path = require('path');
 
-const GuildChannel = require(path.join(__dirname, '..', 'Models', 'GuildChannel.js'));
+const GuildTextChannel = require(path.join(__dirname, '..', 'Models', 'GuildTextChannel.js'));
 
 class ChannelCaching {
 	constructor(client, iterable) {
@@ -36,7 +36,28 @@ class ChannelCaching {
 			id: data.id
 		};
 
-		return new GuildChannel(this.client, initObj);
+		return this.filterThroughTypes(initObj)
+	}
+
+ filterThroughTypes(data) {
+		const that = this;
+		switch (data.type) {
+			case 0:
+				return new GuildTextChannel(that.client, data)
+				break;
+			case 1:
+				return; // TODO: DM channel structure.
+				break;
+			case 2:
+				return; // TODO: VoiceChannel structure.
+				break;
+			case 3:
+				return; // TODO: Group DM structure.
+				break;
+			case 4:
+				return; // TODO: Channel Category structure.
+				break;
+		}
 	}
 
 }

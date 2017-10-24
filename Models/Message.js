@@ -1,7 +1,8 @@
 const path = require('path');
 
 const Guild = require(path.join(__dirname, '..', 'Models', 'Guild.js'));
-const GuildChannel = require(path.join(__dirname, '..', 'Models', 'GuildChannel.js'));
+const GuildChannel = require(path.join(__dirname, '..', 'Models', 'GuildTextChannel.js'));
+const ChannelCaching = require(path.join(__dirname, '..', 'Models', 'ChannelCaching.js'));
 const User = require(path.join(__dirname, '..', 'Models', 'User.js'));
 module.exports = class Message {
 	constructor(client, data) {
@@ -18,6 +19,6 @@ module.exports = class Message {
 		this.attachments = data.attachments || [];
 		this.embeds = data.embeds || [];
 		this.guild = client.guilds.get(client.channels.get(this.channelID).guildID);
-		this.channel = new GuildChannel(client, client.channels.get(this.channelID));
+		this.channel = new ChannelCaching(client, client.channels.get(this.channelID)).filterThroughTypes(client.channels.get(this.channelID));
 	}
 };
