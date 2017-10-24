@@ -18,7 +18,12 @@ module.exports = class Message {
 		this.roleMentions = data.roleMentions || [];
 		this.attachments = data.attachments || [];
 		this.embeds = data.embeds || [];
-		this.guild = client.guilds.get(client.channels.get(this.channelID).guildID);
-		this.channel = new ChannelCaching(client, client.channels.get(this.channelID)).filterThroughTypes(client.channels.get(this.channelID));
-	}
-};
+
+		this.guild = client.channels.has(this.channelID) ||
+			client.channels.has(this.channelID).guildID ?
+		 client.guilds.get(client.channels.get(this.channelID).guildID) :
+		 null
+
+		this.channel = client.channels.get(this.channelID)
+	};
+}
