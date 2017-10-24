@@ -1,8 +1,9 @@
 const Invite = require('./Invite.js');
-const TextBasedChannel = require('./TextBasedChannel.js')
-class GuildTextChannel extends TextBasedChannel{
+const TextBasedChannel = require('./TextBasedChannel.js');
+
+class GuildTextChannel extends TextBasedChannel {
 	constructor(client, data) {
-		super(client, data)
+		super(client, data);
 		this.name = data.name;
 		this.position = data.position;
 		this.permissionOverwrites = data.permissionOverwrites;
@@ -10,20 +11,18 @@ class GuildTextChannel extends TextBasedChannel{
 		this.topic = data.topic;
 		this.lastMessageID = data.lastMessageID;
 		this.parentChannelID = data.parentChannelID;
-		Object.defineProperty(this, 'client', { value: client });
+		Object.defineProperty(this, 'client', {value: client});
 	}
 
 	async createInviteLink(options) {
-		let that = this;
+		const that = this;
 		return new Promise(async (resolve, reject) => {
-
-			if (!options instanceof Object) {
-					reject('ERROR: The invite options must come in an object.');
+			if (!(options instanceof Object)) {
+				reject('ERROR: The invite options must come in an object.');
 			}
 
 			try {
-
-				let res = await that.client.APIManager.makeRequest(
+				const res = await that.client.APIManager.makeRequest(
 					'post',
 					 that.client.APIManager.endpoints.ENDPOINTS_CHANNELS.invites.create(that.id),
 					 options
@@ -33,7 +32,6 @@ class GuildTextChannel extends TextBasedChannel{
 			} catch (e) {
 				reject(e);
 			}
-
 		});
 	}
 

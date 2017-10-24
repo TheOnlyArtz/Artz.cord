@@ -8,7 +8,7 @@ const GuildTextChannel = require(path.join(__dirname, '..', 'Models', 'GuildText
 class ChannelCaching {
 	constructor(client, iterable) {
 		this.iterable = iterable;
-		Object.defineProperty(this, 'client', { value: client });
+		Object.defineProperty(this, 'client', {value: client});
 	}
 
 	_cache() {
@@ -36,26 +36,26 @@ class ChannelCaching {
 			id: data.id
 		};
 
-		return this.filterThroughTypes(initObj)
+		return this.filterThroughTypes(initObj);
 	}
 
- filterThroughTypes(data) {
+	filterThroughTypes(data) {
 		const that = this;
 		switch (data.type) {
 			case 0:
-				return new GuildTextChannel(that.client, data)
+				return new GuildTextChannel(that.client, data);
 				break;
 			case 1:
-				return; // TODO: DM channel structure.
+				 // TODO: DM channel structure.
 				break;
 			case 2:
-				return; // TODO: VoiceChannel structure.
+				 // TODO: VoiceChannel structure.
 				break;
 			case 3:
-				return; // TODO: Group DM structure.
+				 // TODO: Group DM structure.
 				break;
 			case 4:
-				return; // TODO: Channel Category structure.
+				 // TODO: Channel Category structure.
 				break;
 		}
 	}

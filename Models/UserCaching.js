@@ -2,7 +2,7 @@ const User = require('./User.js');
 
 class UserCaching {
 	constructor(client, iterable) {
-		Object.defineProperty(this, 'client', { value: client });
+		Object.defineProperty(this, 'client', {value: client});
 		this.iterable = iterable;
 	}
 

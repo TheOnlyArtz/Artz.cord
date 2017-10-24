@@ -3,7 +3,7 @@ const Presence = require('./Presence.js');
 class PresenceStore {
 	constructor(client, iterable) {
 		this.iterable = iterable;
-		Object.defineProperty(this, 'client', { value: client });
+		Object.defineProperty(this, 'client', {value: client});
 	}
 
 	_cache() {

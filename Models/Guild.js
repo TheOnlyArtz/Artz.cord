@@ -1,9 +1,10 @@
 const Structure = require('./Structure.js');
 const constants = require('../Constants.js');
+
 const Constants = new constants();
-class Guild extends Structure{
+class Guild extends Structure {
 	constructor(client, data) {
-		super(client)
+		super(client);
 		this.id = data.id;
 		this.name = data.name;
 		this.icon = data.icon;
@@ -32,35 +33,42 @@ class Guild extends Structure{
 	}
 
 	async createChannel(options) {
-		if (!options instanceof Object) throw new Error('Channel properties must be inside an Object');
-		if (!options) throw new Error('Cannot create a channel without it\'s properties.');
-		if (!options.name) throw new Error('Please supply the name for the channel under the property of name.');
-		return this.client.APIManager.makeRequest('post', `/guilds/${this.id}/channels`, options)
+		if (!(options instanceof Object)) {
+			throw new TypeError('Channel properties must be inside an Object');
+		}
+		if (!options) {
+			throw new Error('Cannot create a channel without it\'s properties.');
+		}
+		if (!options.name) {
+			throw new Error('Please supply the name for the channel under the property of name.');
+		}
+		return this.client.APIManager.makeRequest('post', `/guilds/${this.id}/channels`, options);
 	}
 
 	async deleteChannel(snowflake) {
-		if (!options) throw new Error('Please specify the channel ID you want to delete.');
+		if (!options) {
+			throw new Error('Please specify the channel ID you want to delete.');
+		}
 		return this.client.APIManager.makeRequest('delete', Constants.ENDPOINTS_CHANNELS.delete(snowflake));
 	}
 
 	async changeName(name) {
-
-		if (!name instanceof String) throw Error('A name can\'t be something else than a string.');
-		let payload = {
-				name: name,
+		if (!(name instanceof String)) {
+			throw new TypeError('A name can\'t be something else than a string.');
+		}
+		const payload = {
+			name
 		};
 
-		let that = this;
+		const that = this;
 
 		return new Promise(async (resolve, reject) => {
-
 			try {
-				let res = await that.client.APIManager.makeRequest('patch', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.modify(that.id), payload);
+				const res = await that.client.APIManager.makeRequest('patch', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.modify(that.id), payload);
 				resolve(new Guild(this.client, res));
 			} catch (e) {
 				reject(e);
 			}
-
 		});
 	}
 }
