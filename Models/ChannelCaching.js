@@ -5,6 +5,8 @@ const path = require('path');
 
 const GuildTextChannel = require(path.join(__dirname, '..', 'Models', 'GuildTextChannel.js'));
 const DMChannel = require(path.join(__dirname, '..', 'Models', 'DMChannel.js'));
+const VoiceChannel = require(path.join(__dirname, '..', 'Models', 'VoiceChannel.js'));
+const GroupDM = require(path.join(__dirname, '..', 'Models', 'GroupDM.js'));
 class ChannelCaching {
 	constructor(client, iterable) {
 		this.iterable = iterable;
@@ -23,37 +25,52 @@ class ChannelCaching {
 	_cachingObj(data, guildData) {
 		const type = data.type;
 
-		const initObj = {
-			guildID: guildData.id,
-			type: data.type,
-			topic: data.topic,
-			position: data.position,
-			permissionOverwrites: data.permission_overwrites,
-			parentChannelID: data.parent_id,
-			nsfw: data.nsfw,
-			name: data.name,
-			lastMessageID: data.last_message_id,
-			id: data.id
-		};
+		if (data.type === 0) {
+			const initObj = {
+				guildID: guildData.id,
+				type: data.type,
+				topic: data.topic,
+				position: data.position,
+				permissionOverwrites: data.permission_overwrites,
+				parentChannelID: data.parent_id,
+				nsfw: data.nsfw,
+				name: data.name,
+				lastMessageID: data.last_message_id,
+				id: data.id
+			};
+			return this.filterThroughTypes(initObj);
+		} else if (data.type === 2) {
+			const initObj = {
+				guildID: guildData.id,
+				type: data.type,
+				position: data.position,
+				permissionOverwrites: data.permission_overwrites,
+				parentChannelID: data.parent_id,
+				bitrate: data.bitrate,
+				userLimit: data.user_limit,
+				nsfw: data.nsfw,
+				name: data.name,
+				id: data.id
+			};
+			return this.filterThroughTypes(initObj);
+		}
 
-		return this.filterThroughTypes(initObj);
 	}
 
 	filterThroughTypes(data) {
 		const that = this;
-		// console.log(data);
 		switch (data.type) {
 			case 0:
 				return this.client.channels.set(data.id, new GuildTextChannel(that.client, data));
 				break;
 			case 1:
-				 return this.client.channels.set(data.id, new DMChannel(that.client, data))
+				 return this.client.channels.set(data.id, new DMChannel(that.client, data));
 				break;
 			case 2:
-				 // TODO: VoiceChannel structure.
+				 return this.client.channels.set(data.id, new VoiceChannel(that.client, data));
 				break;
 			case 3:
-				 // TODO: Group DM structure.
+				 return this.client.channels.set(data.id, new GroupDM(that.client, data));
 				break;
 			case 4:
 				 // TODO: Channel Category structure.
