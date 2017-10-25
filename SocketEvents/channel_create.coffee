@@ -1,6 +1,6 @@
 path = require('path')
 Basic = require(path.join(__dirname, 'basic.coffee'));
-ChannelCaching = require(path.join(__dirname, '..', 'Models', 'ChannelCaching.js'));
+ChannelCaching = require(path.join(__dirname, '..', 'Models', 'Caching' , 'ChannelCaching.js'));
 class ChannelCreate extends Basic
 
   constructor: (client) ->

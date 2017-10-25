@@ -1,9 +1,9 @@
 path = require('path')
 Basic = require(path.join(__dirname, 'basic.coffee'));
 Guild = require(path.join(__dirname, '..', 'Models', 'Guild.js'));
-ChannelCaching = require(path.join(__dirname, '..', 'Models', 'ChannelCaching.js'));
-PresenceCaching = require(path.join(__dirname, '..', 'Models', 'PresenceCaching.js'));
-UserCaching = require(path.join(__dirname, '..', 'Models', 'UserCaching.js'));
+ChannelCaching = require(path.join(__dirname, '..', 'Models', 'Caching', 'ChannelCaching.js'));
+PresenceCaching = require(path.join(__dirname, '..', 'Models', 'Caching', 'PresenceCaching.js'));
+UserCaching = require(path.join(__dirname, '..', 'Models', 'Caching', 'UserCaching.js'));
 
 class GuildCreateEvent extends Basic
 
