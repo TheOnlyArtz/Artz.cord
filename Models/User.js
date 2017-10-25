@@ -5,7 +5,7 @@ class User {
 		this.discriminator = data.discriminator;
 		this.avatar = data.avatar;
 		this.bot = Boolean(data.bot);
-		this.presence = client.presences.get(data.id);
+		this.presence = client.presences.get(data.id) || "offline";
 	}
 }
 
