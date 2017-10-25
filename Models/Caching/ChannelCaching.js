@@ -3,10 +3,10 @@
 */
 const path = require('path');
 
-const GuildTextChannel = require(path.join(__dirname, '..', 'Models', 'GuildTextChannel.js'));
-const DMChannel = require(path.join(__dirname, '..', 'Models', 'DMChannel.js'));
-const VoiceChannel = require(path.join(__dirname, '..', 'Models', 'VoiceChannel.js'));
-const GroupDM = require(path.join(__dirname, '..', 'Models', 'GroupDM.js'));
+const GuildTextChannel = require(path.join(__dirname, '..', 'GuildTextChannel.js'));
+const DMChannel = require(path.join(__dirname, '..', 'DMChannel.js'));
+const VoiceChannel = require(path.join(__dirname, '..', 'VoiceChannel.js'));
+const GroupDM = require(path.join(__dirname, '..', 'GroupDM.js'));
 class ChannelCaching {
 	constructor(client, iterable) {
 		this.iterable = iterable;

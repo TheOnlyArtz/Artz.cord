@@ -1,4 +1,4 @@
-const Presence = require('./Presence.js');
+const Presence = require('../Presence.js');
 
 class PresenceStore {
 	constructor(client, iterable) {
