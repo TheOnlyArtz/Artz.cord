@@ -1,6 +1,6 @@
 {
   "name": "artzycord",
-  "version": "0.0.1",
+  "version": "0.1",
   "description": "An API wrapper for the Discord API made with ♥",
   "main": "Client.coffee",
   "scripts": {
