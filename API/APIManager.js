@@ -110,20 +110,24 @@ class APIManager {
 					that.ratelimit.retry = response.headers['x-ratelimit-reset'];
 					that.ratelimit.remaining = response.headers['x-ratelimit-remaining'];
 				}
-				if (response.error || response.body.errors) {
-					if (response.body && response.body.errors) {
-						const err = new Error(response.body.errors.name._errors[0].message);
-						err.code = response.body.errors.name._errors[0].code;
-						reject(err);
-					} else {
-						const err = new Error(response.body.message);
-						err.code = response.body.message;
-						err.status = response.status || null;
-						reject(err);
+				if (response.body) {
+					if (response.error || response.body.errors) {
+						if (response.body && response.body.errors && response.body.errors.name) {
+							const err = new Error(response.body.errors.name._errors[0].message);
+							err.code = response.body.errors.name._errors[0].code;
+							reject(err);
+						} else {
+							const err = new Error(response.body.message);
+							err.code = response.body.message;
+							err.status = response.status || null;
+							reject(err);
+						}
 					}
-				}
-				if (response.body && !response.error) {
-					resolve(response.body);
+					if (response.body && !response.error) {
+						resolve(response.body);
+					}
+				} else {
+					resolve()
 				}
 			});
 		});
