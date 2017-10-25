@@ -8,6 +8,9 @@ class GuildMember {
     this.deaf = member.deaf;
   }
 
+  toString() {
+    return `<@${this.member.user.id}>`
+  }
   ban() {
     return new Promise(async (resolve, reject) => {
 
