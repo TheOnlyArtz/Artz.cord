@@ -11,7 +11,7 @@ class PresenceStore {
 
 		if (this.iterable && Array.isArray(this.iterable)) {
 			this.iterable.forEach(i => {
-				this.client.presences.set(i.user.id, new Presence(that.client, i));
+				this.client.presences.set(i.user.id || null, new Presence(that.client, i));
 			});
 		}
 	}
