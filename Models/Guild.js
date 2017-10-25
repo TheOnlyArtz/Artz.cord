@@ -2,6 +2,8 @@ const Structure = require('./Structure.js');
 const constants = require('../Constants.js');
 const Constants = new constants();
 const GuildMember = require('./GuildMember.js');
+const GuildRolesCaching = require('./Caching/GuildRolesCaching.js');
+const GuildEmojisCaching = require('./Caching/GuildRolesCaching.js');
 class Guild extends Structure {
 	constructor(client, data) {
 		super(client);
@@ -18,8 +20,8 @@ class Guild extends Structure {
 		this.defaultMessageNotifications = data.default_message_notifications;
 		this.embedChannelID = data.embed_channel_id;
 		this.explicitContentFilter = data.explicit_content_filter;
-		this.roles = data.roles; // TODO: Collection
-		this.emojis = data.emojis; // TODO: Collection
+		this.roles = new GuildRolesCaching(client, data.roles);
+		this.emojis = new GuildEmojisCaching(client, data.emojis);
 		this.features = data.features;
 		this.mfaLevel = data.mfa_level;
 		this.widgetEnabled = data.widget_enabled;
@@ -27,9 +29,9 @@ class Guild extends Structure {
 		this.unavailable = data.unavailable;
 		this.memberCount = data.member_count;
 		this.voiceStates = data.voice_states;
-		this.members = data.members; // TODO: collection
-		this.channels = data.channels; // TODO: collection
-		this.presence = data.presences; // TODO: Collection
+		this.members = data.members;
+		this.channels = data.channels;
+		this.presences = data.presences;
 	}
 
 	async createChannel(options) {
