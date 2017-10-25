@@ -1,4 +1,5 @@
 const Box = require('../Box.js');
+
 class GuildEmojisCaching {
   constructor(client, data) {
     Object.defineProperty(this, 'client', {value: client});
@@ -10,4 +11,4 @@ class GuildEmojisCaching {
   }
 }
 
-module.exports = GuildRolesCaching
+module.exports = GuildMembersCaching;
