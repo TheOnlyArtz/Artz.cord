@@ -121,7 +121,7 @@ class EmbedMessage {
     return this;
   }
 
-  setImage(url) {
+  newImage(url) {
 		if (this.image || this.image !== null) {
 			throw new Error('Can\'t set more than 1 image.');
 		}
@@ -138,7 +138,7 @@ class EmbedMessage {
     return this;
   }
 
-  setThumbnail(url) {
+  newThumbnail(url) {
 		if (this.thumbnail || this.thumbnail !== null) {
 			throw new Error('Can\'t set more than 1 thumbnail.');
 		}
@@ -155,7 +155,7 @@ class EmbedMessage {
     return this;
   }
 
-  setVideo(url) {
+  newVideo(url) {
 		if (this.video || this.video !== null) {
 			throw new Error('Can\'t set more than 1 video.');
 		}
