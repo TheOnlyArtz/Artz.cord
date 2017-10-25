@@ -12,12 +12,12 @@ module.exports = class Message {
 		this.nonce = data.nonce;
 		this.content = data.content;
 		this.id = data.id;
-		this.channelID = data.channel_id; // TODO: Make it new TextChannel
+		this.channelID = data.channel_id;
 		this.author = new User(client, data.author);
-		this.mentions = data.mentions || [];
-		this.roleMentions = data.roleMentions || [];
-		this.attachments = data.attachments || [];
-		this.embeds = data.embeds || [];
+		this.mentions = data.mentions || []; // TODO: Box
+		this.roleMentions = data.roleMentions || []; // TODO: Box
+		this.attachments = data.attachments || []; // TODO: Box
+		this.embeds = data.embeds || []; // TODO: Box
 
 		this.guild = client.channels.has(this.channelID) ||
 			client.channels.has(this.channelID).guildID ?
