@@ -1,5 +1,6 @@
 EventEmitter = (require('events').EventEmitter);
 WebSocketManager = require ('./WebSocket/WebSocketManager')
+Box = require('./Models/Box.js');
 APIManager = require('./API/APIManager.js')
 Function::property = (prop, desc) ->
   Object.defineProperty @prototype, prop, desc
@@ -11,10 +12,10 @@ class Client extends EventEmitter
     this.ws = new WebSocketManager(this);
     this.APIManager = new APIManager(this)
 
-    this.users = new Map
-    this.channels = new Map;
-    this.guilds = new Map;
-    this.presences = new Map;
+    this.users = new Box;
+    this.channels = new Box;
+    this.guilds = new Box;
+    this.presences = new Box;
 
     this.readyUnix = null;
     this.uptime = Date.now() - this.readyUnix;

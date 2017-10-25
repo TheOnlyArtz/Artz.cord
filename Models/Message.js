@@ -2,7 +2,7 @@ const path = require('path');
 
 const Guild = require(path.join(__dirname, '..', 'Models', 'Guild.js'));
 const GuildChannel = require(path.join(__dirname, '..', 'Models', 'GuildTextChannel.js'));
-const ChannelCaching = require(path.join(__dirname, '..', 'Models', 'ChannelCaching.js'));
+const ChannelCaching = require(path.join(__dirname, '..', 'Models', 'Caching', 'ChannelCaching.js'));
 const User = require(path.join(__dirname, '..', 'Models', 'User.js'));
 module.exports = class Message {
 	constructor(client, data) {
