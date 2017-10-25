@@ -6,10 +6,14 @@ class EmbedMessage {
 		this.title = null;
 		this.footer = null;
 		this.author = null;
+		this.provider = null;
+		this.image = null;
+		this.thumbnail = null;
+		this.video = null;
     // Am so tired :D
 	}
 
-	createField(title, content, inline = false) {
+	newField(title, content, inline = false) {
 		if (this.fields.length >= 25) {
 			throw new Error('ERROR: Embed Limit has been reached, can\'t set more than 25 fields.');
 		}
@@ -32,7 +36,7 @@ class EmbedMessage {
 		return this;
 	}
 
-	description(content) {
+	newDescription(content) {
 		if (this.description || this.description !== null) {
 			throw new Error('Can\'t create more than 1 description.');
 		}
@@ -45,7 +49,7 @@ class EmbedMessage {
 		return this;
 	}
 
-	title(title) {
+	newTitle(title) {
 		if (this.title || this.title !== null) {
 			throw new Error('Can\'t create more than 1 title.');
 		}
@@ -62,8 +66,7 @@ class EmbedMessage {
     // TODO: Do some research about converting from HEX / RGB / VSL / RGBA
 	}
 
-	footer(content, icon = null) {
-    // TODO: convert URL to 64bit string.
+	newFooter(content, icon = null) {
 		if (this.footer || this.footer !== null) {
 			throw new Error('Can\'t create more than 1 footer.');
 		}
@@ -81,7 +84,7 @@ class EmbedMessage {
 		return this;
 	}
 
-	author(name, url) {
+	newAuthor(name, url) {
 		if (this.author || this.author !== null) {
 			throw new Error('Can\'t set more than 1 author.');
 		}
@@ -100,19 +103,73 @@ class EmbedMessage {
 	}
 
   // TODO: Write all of them!
-  provider() {
+  newProvider(name, url) {
+		if (this.provider || this.provider !== null) {
+			throw new Error('Can\'t set more than 1 provider.');
+		}
+
+		if (!name) {
+			throw new Error('Can\'t set an empty author (Name missing)');
+		}
+
+		const payload = {
+			name: name,
+			icon_url: url,
+		}
+
+		this['provider'] = payload;
     return this;
   }
 
-  image() {
+  setImage(url) {
+		if (this.image || this.image !== null) {
+			throw new Error('Can\'t set more than 1 image.');
+		}
+
+		if (!url) {
+			throw new Error('Can\'t set an empty image (Image resolvable missing)');
+		}
+
+		const payload = {
+			url: url,
+		}
+
+		this['image'] = payload
     return this;
   }
 
-  thumbnail() {
+  setThumbnail(url) {
+		if (this.thumbnail || this.thumbnail !== null) {
+			throw new Error('Can\'t set more than 1 thumbnail.');
+		}
+
+		if (!url) {
+			throw new Error('Can\'t set an empty thumbnail (Image resolvable missing)');
+		}
+
+		const payload = {
+			url : url
+		}
+
+		this['thumbnail'] = payload;
     return this;
   }
 
-  video() {
+  setVideo(url) {
+		if (this.video || this.video !== null) {
+			throw new Error('Can\'t set more than 1 video.');
+		}
+
+		if (!url) {
+			throw new Error('Can\'t set an empty video (Image resolvable missing)');
+		}
+
+		const payload = {
+			url : url
+		}
+
+		this['video'] = payload;
+
     return this;
   }
 
