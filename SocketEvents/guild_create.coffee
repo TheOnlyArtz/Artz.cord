@@ -22,7 +22,7 @@ class GuildCreateEvent extends Basic
     #                                                  #
     ####################################################
     this.ChannelCaching = new ChannelCaching(this.client, this.client.guilds)._cache();
-    this.PresenceCaching = new PresenceCaching(this.client, guild.presence)._cache();
+    this.PresenceCaching = new PresenceCaching(this.client, guild.presences.array())._cache();
     this.UserCaching = new UserCaching(this.client, guild.members)._cache();
 
 module.exports = GuildCreateEvent
