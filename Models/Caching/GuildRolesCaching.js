@@ -1,5 +1,5 @@
 const Box = require('../Box.js');
-
+// TODO: Role Structure
 class GuildRolesCaching {
   constructor(client, data) {
     Object.defineProperty(this, 'client', {value: client});

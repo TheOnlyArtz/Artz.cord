@@ -6,12 +6,12 @@ class ClientUser extends Structure {
 		super(client);
 		this.username = data.user.username;
 		this.id = data.user.id;
+		this.avatar = data.user.avatar;
 		this.discriminator = '#' + data.user.discriminator;
 		this.verified = data.user.verified;
 		this.bot = data.user.bot;
 		this.relationShips = data.relationships;
 		this.DMs = data.private_channels;
-		this.data = data;
 		this.presence = client.getOption('presence', {});
 		this.clientPresence = {
 			afk: this.presence.afk ? this.presence.afk : false,

@@ -1,9 +1,13 @@
 const Structure = require('./Structure.js');
 const constants = require('../Constants.js');
-const Constants = new constants();
 const GuildMember = require('./GuildMember.js');
+const Constants = new constants();
+
 const GuildRolesCaching = require('./Caching/GuildRolesCaching.js');
 const GuildEmojisCaching = require('./Caching/GuildRolesCaching.js');
+const GuildMembersCaching = require('./Caching/GuildMembersCaching.js');
+const GuildPresenceCaching = require('./Caching/GuildPresenceCaching.js');
+
 class Guild extends Structure {
 	constructor(client, data) {
 		super(client);
@@ -29,9 +33,9 @@ class Guild extends Structure {
 		this.unavailable = data.unavailable;
 		this.memberCount = data.member_count;
 		this.voiceStates = data.voice_states;
-		this.members = data.members;
-		this.channels = data.channels;
-		this.presences = data.presences;
+		this.members = new GuildMembersCaching(client, data.members);
+		this.channels = data.channels; // TODO: Box insted of pointless array.
+		this.presences = new GuildPresenceCaching(client, data.presences);
 	}
 
 	async createChannel(options) {

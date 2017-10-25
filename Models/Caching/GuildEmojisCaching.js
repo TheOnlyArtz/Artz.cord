@@ -1,5 +1,5 @@
 const Box = require('../Box.js');
-
+// TODO: Emoji structure
 class GuildEmojisCaching {
   constructor(client, data) {
     Object.defineProperty(this, 'client', {value: client});
