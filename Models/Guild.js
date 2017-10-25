@@ -1,7 +1,7 @@
 const Structure = require('./Structure.js');
 const constants = require('../Constants.js');
-
 const Constants = new constants();
+const GuildMember = require('./GuildMember.js');
 class Guild extends Structure {
 	constructor(client, data) {
 		super(client);
@@ -33,7 +33,7 @@ class Guild extends Structure {
 	}
 
 	async createChannel(options) {
-		if (!(options instanceof Object)) {
+		if (!options instanceof Object) {
 			throw new TypeError('Channel properties must be inside an Object');
 		}
 		if (!options) {
@@ -53,11 +53,11 @@ class Guild extends Structure {
 	}
 
 	async changeName(name) {
-		if (!(name instanceof String)) {
+		if (!name instanceof String) {
 			throw new TypeError('A name can\'t be something else than a string.');
 		}
 		const payload = {
-			name
+			name: name
 		};
 
 		const that = this;
@@ -71,6 +71,64 @@ class Guild extends Structure {
 			}
 		});
 	}
+
+	async delete() {
+		const that = this;
+		return new Promise(async (resolve, reject) => {
+
+			try {
+				const res = await that.client.APIManager.makeRequest('delete', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.delete(that.id));
+				resolve('Channel has been deleted successfuly');
+			} catch (e) {
+				reject(e);
+			}
+
+		});
+	}
+
+	async banMember(snowflake, options = {"delete-message-days": 0}) {
+		const that = this;
+		if (!snowflake) throw new Error('Can\'t complete the ban, please supply a member\'s ID.');
+
+		if (options.days) {
+				options = {
+					"delete-message-days": options.days
+				}
+		}
+
+		return new Promise(async (resolve, reject) => {
+
+			try {
+				const res = await that.client.APIManager.makeRequest('put', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.bans.create(that.id, snowflake), options);
+				resolve('Ban has been created!');
+			} catch (e) {
+				reject(e);
+			}
+
+		});
+	}
+
+	async unbanMember(snowflake) {
+		const that = this;
+		if (!snowflake) throw new Error('Can\'t complete the unban, please supply a member\'s ID.');
+
+		return new Promise(async (resolve, reject) => {
+
+			try {
+				const res = await that.client.APIManager.makeRequest('delete', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.bans.remove(that.id, snowflake));
+				resolve('Ban has been created!');
+			} catch (e) {
+				reject(e);
+			}
+
+		});
+	}
+
+	getMember(id) {
+		let filteredMember = this.members.filter(i => i.user.id === id)[0];
+		return new GuildMember(this.client, filteredMember);
+	}
+
 }
 
 module.exports = Guild;
