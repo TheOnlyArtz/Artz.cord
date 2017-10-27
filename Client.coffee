@@ -21,7 +21,7 @@ class Client extends EventEmitter
     this.readyUnix = null;
     this.uptime = Date.now() - this.readyUnix;
 
-  login: (token) ->
+  connect: (token) ->
     that = this
     that.token = "#{token}"
     return new Promise (resolve, reject) ->
