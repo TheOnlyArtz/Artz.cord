@@ -1,4 +1,5 @@
 module.exports = {
 	Client: require('./Client.coffee'),
-	EmbedMessage: require('./EmbedMessage')
+	EmbedMessage: require('./EmbedMessage'),
+	Box: require('./Models/Box.js');
 };

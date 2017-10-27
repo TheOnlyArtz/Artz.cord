@@ -1,8 +1,8 @@
 {
   "name": "artzycord",
-  "version": "0.1",
+  "version": "0.0.3",
   "description": "An API wrapper for the Discord API made with ♥",
-  "main": "Client.coffee",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
