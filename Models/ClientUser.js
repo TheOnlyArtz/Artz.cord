@@ -1,3 +1,4 @@
+const Box = require('./Box.js');
 const Presence = require('./Presence.js');
 const Structure = require('./Structure.js');
 
@@ -10,8 +11,8 @@ class ClientUser extends Structure {
 		this.discriminator = '#' + data.user.discriminator;
 		this.verified = data.user.verified;
 		this.bot = data.user.bot;
-		this.relationShips = data.relationships;
-		this.DMs = data.private_channels;
+		this.relationShips = new Box(data.relationships);
+		this.DMs = new Box(data.private_channels);
 		this.presence = client.getOption('presence', {});
 		this.clientPresence = {
 			afk: this.presence.afk ? this.presence.afk : false,

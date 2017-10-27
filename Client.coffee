@@ -16,6 +16,7 @@ class Client extends EventEmitter
     this.channels = new Box;
     this.guilds = new Box;
     this.presences = new Box;
+    this.emojis = new Box;
 
     this.readyUnix = null;
     this.uptime = Date.now() - this.readyUnix;

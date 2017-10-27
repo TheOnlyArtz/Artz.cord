@@ -3,9 +3,11 @@ const constants = require('../Constants.js');
 const GuildMember = require('./GuildMember.js');
 const Constants = new constants();
 
+const Box = require('./Box.js')
 const GuildRolesCaching = require('./Caching/GuildRolesCaching.js');
-const GuildEmojisCaching = require('./Caching/GuildRolesCaching.js');
+const GuildEmojisCaching = require('./Caching/GuildEmojisCaching.js');
 const GuildMembersCaching = require('./Caching/GuildMembersCaching.js');
+const GuildChannelsCaching = require('./Caching/GuildChannelsCaching.js');
 const GuildPresenceCaching = require('./Caching/GuildPresenceCaching.js');
 
 class Guild extends Structure {
@@ -26,15 +28,17 @@ class Guild extends Structure {
 		this.explicitContentFilter = data.explicit_content_filter;
 		this.roles = new GuildRolesCaching(client, data.roles);
 		this.emojis = new GuildEmojisCaching(client, data.emojis);
-		this.features = data.features;
+		this.features = new Box(data.features);
 		this.mfaLevel = data.mfa_level;
 		this.widgetEnabled = data.widget_enabled;
 		this.large = data.large;
 		this.unavailable = data.unavailable;
 		this.memberCount = data.member_count;
 		this.voiceStates = data.voice_states;
-		this.members = new GuildMembersCaching(client, data.members);
-		this.channels = data.channels; // TODO: Box insted of pointless array.
+		this.members = new GuildMembersCaching(client, data.members)
+		this.channels = data.channels
+
+		// this.channels = new GuildChannelsCaching(client, data.channels); // TODO: Box insted of pointless array.
 		this.presences = new GuildPresenceCaching(client, data.presences);
 	}
 
@@ -133,6 +137,11 @@ class Guild extends Structure {
 	getMember(id) {
 		let filteredMember = this.members.filter(i => i.user.id === id)[0];
 		return new GuildMember(this.client, filteredMember);
+	}
+
+	// TODO: ICON URL GETTER
+	get guildIcon() {
+		return this.client.APIManager.endpoints.CDN.icons(this.id, this.icon);
 	}
 
 }
