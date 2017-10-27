@@ -52,6 +52,6 @@ class Client extends EventEmitter
   getOption: (name, defaultOpt = null) ->
     if this.options instanceof Object && this.options[name]
       return this.options[name]
-
     return defaultOpt
+    
 module.exports = Client;
