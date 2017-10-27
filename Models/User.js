@@ -7,6 +7,10 @@ class User {
 		this.bot = Boolean(data.bot);
 		this.presence = client.presences.get(data.id) || "offline";
 	}
+
+	get tag() {
+		return this.username + this.discriminator
+	}
 }
 
 module.exports = User;
