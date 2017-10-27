@@ -4,6 +4,7 @@ const Guild = require(path.join(__dirname, '..', 'Models', 'Guild.js'));
 const GuildChannel = require(path.join(__dirname, '..', 'Models', 'GuildTextChannel.js'));
 const ChannelCaching = require(path.join(__dirname, '..', 'Models', 'Caching', 'ChannelCaching.js'));
 const User = require(path.join(__dirname, '..', 'Models', 'User.js'));
+const Box = require(path.join(__dirname, '..', 'Models', 'Box.js'));
 module.exports = class Message {
 	constructor(client, data) {
 		this.tts = data.tts;
@@ -14,10 +15,10 @@ module.exports = class Message {
 		this.id = data.id;
 		this.channelID = data.channel_id;
 		this.author = new User(client, data.author);
-		this.mentions = data.mentions || []; // TODO: Box
-		this.roleMentions = data.roleMentions || []; // TODO: Box
-		this.attachments = data.attachments || []; // TODO: Box
-		this.embeds = data.embeds || []; // TODO: Box
+		this.mentions = new Box(data.mentions);
+		this.roleMentions = new Box(this.roleMentions);
+		this.attachments = new Box(data.attachments);
+		this.embeds = new Box(data.embeds);
 
 		this.guild = client.channels.has(this.channelID) ||
 			client.channels.has(this.channelID).guildID ?
