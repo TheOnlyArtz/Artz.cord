@@ -5,6 +5,7 @@ class GuildMember {
     this.roles = member.roles;
     this.muted = member.mute;
     this.joinedAt = member.joined_at;
+    this.user = new User(client, member.user)
     this.deaf = member.deaf;
   }
 
