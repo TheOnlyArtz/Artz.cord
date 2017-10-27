@@ -1,13 +1,13 @@
 class VoiceChannel {
-  constructor(data) {
+  constructor(client, data) {
     this.id = data.id;
     this.type = data.type;
-    this.userLimit = data.user_limit;
+    this.userLimit = data.userLimit;
     this.name = data.name;
     this.position = data.position;
-    this.permissionOverwrites = data.permission_overwrites;
+    this.permissionOverwrites = data.permissionOverwrites;
     this.bitrate = data.bitrate;
-    this.parentChannelID = data.parent_id
+    this.parentChannelID = data.parentChannelID
   }
 }
 
