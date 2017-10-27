@@ -7,14 +7,15 @@ class Constants {
 
 		this.VERSION = '0.0.1';
 
+		let CDN_URL = 'https://cdn.discordapp.com/'
 		this.CDN = {
 			url: 'https://cdn.discordapp.com/',
 			emojis: id => `emojis/${id}.png`,
-			icons: (id, splash) => `icons/${id}/${splash}.png`,
-			splashes: (id, splash) => `splashes/${id}/${splash}.png`,
-			defaultAvatar: discriminator => `embed/avatars/${discriminator}.png`,
-			userAvatar: (id, avatar, format) => `avatars/${id}/${avatar}.${format}`,
-			appIcon: (id, icon) => `app-icons/${id}/${icon}.png`
+			icons: (id, splash) => CDN_URL + `icons/${id}/${splash}.png`,
+			splashes: (id, splash) => CDN_URL + `splashes/${id}/${splash}.png`,
+			defaultAvatar: discriminator => CDN_URL + `embed/avatars/${discriminator}.png`,
+			userAvatar: (id, avatar, format) => CDN_URL + `avatars/${id}/${avatar}.${format}`,
+			appIcon: (id, icon) => CDN_URL + `app-icons/${id}/${icon}.png`
 		};
 
 		this.ENDPOINTS_CHANNELS = {
