@@ -1,7 +1,6 @@
 const User = require('./user.js');
 class GuildMember {
   constructor(client, member) {
-    this.user = client.users.get(member.user.id)
     this.roles = member.roles;
     this.muted = member.mute;
     this.joinedAt = member.joined_at;

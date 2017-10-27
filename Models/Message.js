@@ -2,6 +2,7 @@ const path = require('path');
 
 const Guild = require(path.join(__dirname, '..', 'Models', 'Guild.js'));
 const GuildChannel = require(path.join(__dirname, '..', 'Models', 'GuildTextChannel.js'));
+const MessageMentionCaching = require(path.join(__dirname, '..', 'Models','Caching', 'MessageMentionCaching.js'));
 const ChannelCaching = require(path.join(__dirname, '..', 'Models', 'Caching', 'ChannelCaching.js'));
 const User = require(path.join(__dirname, '..', 'Models', 'User.js'));
 const Box = require(path.join(__dirname, '..', 'Models', 'Box.js'));
@@ -15,10 +16,11 @@ module.exports = class Message {
 		this.id = data.id;
 		this.channelID = data.channel_id;
 		this.author = new User(client, data.author);
-		this.mentions = new Box(data.mentions);
-		this.roleMentions = new Box(this.roleMentions);
+		this.mentions = data.mentions
+		// this.mentions = new MessageMentionCaching(client, this, data.mentions, data.roleMentions);
+		this.roleMentions = new Box(data.roleMentions);
 		this.attachments = new Box(data.attachments);
-		this.embeds = new Box(data.embeds);
+		// this.embeds = new Box(data.embeds);
 
 		this.guild = client.channels.has(this.channelID) ||
 			client.channels.has(this.channelID).guildID ?
