@@ -2,8 +2,8 @@ const Structure = require('./Structure.js');
 const constants = require('../Constants.js');
 const GuildMember = require('./GuildMember.js');
 const Constants = new constants();
-
 const Box = require('./Box.js')
+
 const GuildRolesCaching = require('./Caching/GuildRolesCaching.js');
 const GuildEmojisCaching = require('./Caching/GuildEmojisCaching.js');
 const GuildMembersCaching = require('./Caching/GuildMembersCaching.js');
@@ -52,7 +52,7 @@ class Guild extends Structure {
 		if (!options.name) {
 			throw new Error('Please supply the name for the channel under the property of name.');
 		}
-		return this.client.APIManager.makeRequest('post', `/guilds/${this.id}/channels`, options);
+		return this.client.APIManager.makeRequest('post', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.channels.create(that.id), options);
 	}
 
 	async deleteChannel(snowflake) {
@@ -136,7 +136,7 @@ class Guild extends Structure {
 
 	getMember(id) {
 		let filteredMember = this.members.filter(i => i.user.id === id)[0];
-		return new GuildMember(this.client, filteredMember);
+		return this.members.get(filteredMember.id) ? this.members.get(filteredMember.id) : new GuildMember(this.client, filteredMember);
 	}
 
 	get guildIcon() {
