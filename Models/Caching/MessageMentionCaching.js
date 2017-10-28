@@ -9,7 +9,19 @@ class MessageMentionCaching {
         this.users = new Box();
 
         for (let user of users) {
-          this.users.set(user.id, new User(client, user))
+          this.users.set(user.id, message.guild.members.get(user.id));
+        }
+      }
+    }
+
+    if (roleMentions) {
+      if (roleMentions instanceof Box) {
+        this.roles = new Box(roleMentions)
+      } else {
+        this.roles = new Box();
+
+        for (let role of roleMentions) {
+          this.roles.set(role, message.guild.roles.get(role));
         }
       }
     }
