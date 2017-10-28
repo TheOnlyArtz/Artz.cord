@@ -25,12 +25,19 @@ module.exports = class Message {
 		this.content = data.content;
 		this.id = data.id;
 		this.channelID = data.channel_id;
-		this.guild = client.channels.has(this.channelID) || client.channels.has(this.channelID).guildID ? client.guilds.get(client.channels.get(this.channelID).guildID) : null
+		this.guild = client.channels.has(this.channelID) || client.channels.get(this.channelID).guildID ? client.guilds.get(client.channels.get(this.channelID).guildID) : null
 		this.author = new User(client, data.author);
 		this.channel = client.channels.get(this.channelID)
 		this.attachments = new MessageAttachmentCaching(client, this, data.attachments);
 		this.mentions = new MessageMentionCaching(client, this, data.mentions, data.mention_roles);
 		// this.embeds = new Box(data.embeds);
+
+		// TODO: Figure out how to implement correctly
+		// if (client.channels.has(this.channelID) && client.channels.get(this.channelID).guildID) {
+		// 	this.author = client.guilds.get(client.channels.get(this.channelID).guildID).members.get(data.author.id)
+		// } else {
+		// 	this.author = new User(client, data.author);
+		// }
 
 	};
 }
