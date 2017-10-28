@@ -102,7 +102,6 @@ class EmbedMessage {
     return this;
 	}
 
-  // TODO: Write all of them!
   newProvider(name, url) {
 		if (this.provider || this.provider !== null) {
 			throw new Error('Can\'t set more than 1 provider.');
