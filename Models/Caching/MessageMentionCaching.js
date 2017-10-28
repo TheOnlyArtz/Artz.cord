@@ -27,5 +27,4 @@ class MessageMentionCaching {
     }
   }
 }
-// TODO: keep going!
 module.exports = MessageMentionCaching;
