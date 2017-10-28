@@ -26,8 +26,6 @@ class Guild extends Structure {
 		this.defaultMessageNotifications = data.default_message_notifications;
 		this.embedChannelID = data.embed_channel_id;
 		this.explicitContentFilter = data.explicit_content_filter;
-		this.roles = new GuildRolesCaching(client, data.roles);
-		this.emojis = new GuildEmojisCaching(client, data.emojis);
 		this.features = new Box(data.features);
 		this.mfaLevel = data.mfa_level;
 		this.widgetEnabled = data.widget_enabled;
@@ -35,8 +33,10 @@ class Guild extends Structure {
 		this.unavailable = data.unavailable;
 		this.memberCount = data.member_count;
 		this.voiceStates = data.voice_states;
-		this.members = new GuildMembersCaching(client, data.members)
 		this.channels = data.channels
+		this.roles = new GuildRolesCaching(client, this, data.roles);
+		this.emojis = new GuildEmojisCaching(client, this, data.emojis);
+		this.members = new GuildMembersCaching(client, this, data.members)
 
 		// this.channels = new GuildChannelsCaching(client, data.channels); // TODO: Box insted of pointless array.
 		this.presences = new GuildPresenceCaching(client, data.presences);
@@ -139,7 +139,6 @@ class Guild extends Structure {
 		return new GuildMember(this.client, filteredMember);
 	}
 
-	// TODO: ICON URL GETTER
 	get guildIcon() {
 		return this.client.APIManager.endpoints.CDN.icons(this.id, this.icon);
 	}
