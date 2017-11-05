@@ -1,6 +1,6 @@
 {
   "name": "artzycord",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An API wrapper for the Discord API made with ♥",
   "main": "index.js",
   "scripts": {

@@ -9,7 +9,7 @@ class GuildMember extends Structure {
     this.muted = member.mute;
     this.joinedAt = member.joined_at;
 
-    this.user = new User(client, member.user)
+    this.user = this.client.users.get(member.user.id) ? this.client.users.get(member.user.id) : new User(client, member.user)
     this.deaf = member.deaf;
 
     this.roles = new Box;
@@ -29,16 +29,29 @@ class GuildMember extends Structure {
     });
   }
 
-  kick() {
-    return new Promise(async (resolve, reject) => {
+  async kick(options) {
 
-    });
+    const payload = {
+      reason : options.reason || null
+    }
+
+    const guildID = this.guild.id;
+
+    const endpoint = this.client.APIManager.endpoints
+      .ENDPOINTS_GUILDS
+      .members
+      .remove(guildID, this.user.id);
+      try {
+        let res = await this.client.APIManager.makeRequest('delete', endpoint, payload);
+      } catch (e) {
+        throw new Error(e);
+      }
+
   }
 
-  changeNickname(nickname) {
-    return new Promise(async (resolve, reject) => {
+  async changeNickname(nickname) {
       if (!nickname) {
-        reject('ERROR: Please supply a username');
+        throw new Error('ERROR: Please supply a nickname');
       }
 
       let guildID = this.guild.id;
@@ -55,22 +68,16 @@ class GuildMember extends Structure {
       try {
         let res = await this.client.APIManager.makeRequest('patch', endpoint, payload);
       } catch (e) {
-        reject(e)
+        throw new Error(e)
       }
 
-    });
   }
 
-  assignRole() {
-    return new Promise(async (resolve, reject) => {
+  async assignRole() {
 
-    });
   }
 
-  removeRole() {
-    return new Promise(async (resolve, reject) => {
-
-    });
+  async removeRole() {
   }
 
 
