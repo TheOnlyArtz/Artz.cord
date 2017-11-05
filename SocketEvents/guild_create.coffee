@@ -17,11 +17,11 @@ class GuildCreateEvent extends Basic
     this.client.guilds.set(guild.id, guild);
     this.client.emit('Guild_Create', guild);
 
-    ####################################################
-    #                                                  #
-    #  A caching process being done to prevent spam    #
-    #                                                  #
-    ####################################################
+    #####################################################
+    #                                                   #
+    #  A caching process being done to prevent API spam #
+    #                                                   #
+    #####################################################
     this.ChannelCaching = new ChannelCaching(this.client, this.client.guilds)._cache();
     this.PresenceCaching = new PresenceCaching(this.client, guild.presences.array())._cache();
     this.UserCaching = new UserCaching(this.client, guild.members.array())._cache();
