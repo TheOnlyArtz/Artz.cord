@@ -22,17 +22,29 @@ class GuildMember extends Structure {
   toString() {
     return `<@${this.member.user.id}>`
   }
+  // TODO: Return message requests.
+  async ban(options) {
+    const payload = {
+      reason : options ? options.reason || null : null
+    }
 
-  ban() {
-    return new Promise(async (resolve, reject) => {
+    const guildID = this.guild.id;
+    const endpoint = this.client.APIManager.endpoints
+      .ENDPOINTS_GUILDS
+      .bans
+      .create(guildID, this.user.id);
 
-    });
+    try {
+      let res = await this.client.APIManager.makeRequest('delete', endpoint, payload);
+    } catch (e) {
+      throw e;
+    }
   }
 
   async kick(options) {
 
     const payload = {
-      reason : options.reason || null
+      reason : options ? options.reason || null : null
     }
 
     const guildID = this.guild.id;
