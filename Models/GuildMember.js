@@ -8,7 +8,6 @@ class GuildMember extends Structure {
     Object.defineProperty(this, 'member', {value: member});
     this.muted = member.mute;
     this.joinedAt = member.joined_at;
-
     this.user = this.client.users.get(member.user.id) ? this.client.users.get(member.user.id) : new User(client, member.user)
     this.deaf = member.deaf;
 
@@ -22,7 +21,7 @@ class GuildMember extends Structure {
   toString() {
     return `<@${this.member.user.id}>`
   }
-  // TODO: Return message requests.
+
   async ban(options) {
     const payload = {
       reason : options ? options.reason || null : null
@@ -34,11 +33,12 @@ class GuildMember extends Structure {
       .bans
       .create(guildID, this.user.id);
 
-    try {
-      let res = await this.client.APIManager.makeRequest('delete', endpoint, payload);
-    } catch (e) {
-      throw e;
-    }
+      this.client.APIManager.makeRequest('delete', endpoint, payload).then(res => {
+        console.log(res);
+      })
+      .catch(e => {
+        throw e
+      })
   }
 
   async kick(options) {

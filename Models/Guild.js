@@ -17,28 +17,34 @@ class Guild extends Structure {
 		this.name = data.name;
 		this.icon = data.icon;
 		this.splash = data.splash;
+
 		this.ownerID = data.owner_id;
 		this.region = data.region;
 		this.afkChannelID = data.afk_channel_id;
 		this.afkTimeout = data.afk_timeout;
 		this.embedEnabled = data.embed_enabled;
 		this.verificationLevel = data.verification_level;
+
 		this.defaultMessageNotifications = data.default_message_notifications;
 		this.embedChannelID = data.embed_channel_id;
 		this.explicitContentFilter = data.explicit_content_filter;
 		this.features = new Box(data.features);
+
+		this.widgetChannelID = data.widget_channel_id;
 		this.mfaLevel = data.mfa_level;
 		this.widgetEnabled = data.widget_enabled;
 		this.large = data.large;
 		this.unavailable = data.unavailable;
 		this.memberCount = data.member_count;
+
+		this.applicationID = data.application_id;
 		this.voiceStates = data.voice_states;
-		this.channels = data.channels
+		this.channels = data.channels;
+		this.systemChannelID = this.system_channel_id;
+
 		this.roles = new GuildRolesCaching(client, this, data.roles);
 		this.emojis = new GuildEmojisCaching(client, this, data.emojis);
-		this.members = new GuildMembersCaching(client, this, data.members)
-
-		// this.channels = new GuildChannelsCaching(client, data.channels); // TODO: Box insted of pointless array.
+		this.members = new GuildMembersCaching(client, this, data.members);
 		this.presences = new GuildPresenceCaching(client, data.presences);
 	}
 
@@ -52,7 +58,7 @@ class Guild extends Structure {
 		if (!options.name) {
 			throw new Error('Please supply the name for the channel under the property of name.');
 		}
-		return this.client.APIManager.makeRequest('post', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.channels.create(that.id), options);
+		return this.client.APIManager.makeRequest('post', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.channels.create(this.id), options);
 	}
 
 	async deleteChannel(snowflake) {
@@ -69,80 +75,81 @@ class Guild extends Structure {
 		const payload = {
 			name: name
 		};
-
-		const that = this;
-
-		return new Promise(async (resolve, reject) => {
 			try {
-				const res = await that.client.APIManager.makeRequest('patch', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.modify(that.id), payload);
-				resolve(new Guild(this.client, res));
+				const res = await this.client.APIManager.makeRequest('patch', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.modify(this.id), payload);
+				return this.client.guilds.get(res.id) ? this.client.guilds.get(res.id) : new Guild(this.client, res)
 			} catch (e) {
-				reject(e);
+				throw e
 			}
-		});
 	}
 
 	async delete() {
-		const that = this;
-		return new Promise(async (resolve, reject) => {
-
-			try {
-				const res = await that.client.APIManager.makeRequest('delete', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.delete(that.id));
-				resolve('Channel has been deleted successfuly');
-			} catch (e) {
-				reject(e);
-			}
-
-		});
+			this.client.APIManager.makeRequest('delete', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.delete(this.id))
+				.catch(e => {return e});
 	}
 
-	async banMember(snowflake, options = {"delete-message-days": 0}) {
-		const that = this;
+ async banMember(snowflake, options = {"delete-message-days": 0}) {
 		if (!snowflake) throw new Error('Can\'t complete the ban, please supply a member\'s ID.');
-
 		if (options.days) {
 				options = {
 					"delete-message-days": options.days
 				}
 		}
-
-		return new Promise(async (resolve, reject) => {
-
-			try {
-				const res = await that.client.APIManager.makeRequest('put', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.bans.create(that.id, snowflake), options);
-				resolve('Ban has been created!');
-			} catch (e) {
-				reject(e);
-			}
-
-		});
+				this.client.APIManager.makeRequest('put', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.bans.create(this.id, snowflake), options)
+					.catch(e => {return e})
 	}
 
-	async unbanMember(snowflake) {
-		const that = this;
+ async unbanMember(snowflake) {
 		if (!snowflake) throw new Error('Can\'t complete the unban, please supply a member\'s ID.');
-
-		return new Promise(async (resolve, reject) => {
-
-			try {
-				const res = await that.client.APIManager.makeRequest('delete', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.bans.remove(that.id, snowflake));
-				resolve('Ban has been created!');
-			} catch (e) {
-				reject(e);
-			}
-
-		});
+		const res = this.client.APIManager.makeRequest('delete', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.bans.remove(this.id, snowflake)).catch(e => {
+			throw e
+		})
 	}
 
 	getMember(id) {
-		let filteredMember = this.members.filter(i => i.user.id === id)[0];
-		return this.members.get(filteredMember.id) ? this.members.get(filteredMember.id) : new GuildMember(this.client, filteredMember);
+		return this.members.get(id) ? this.members.get(id) : new GuildMember(this.client, id);
 	}
 
 	get guildIcon() {
 		return this.client.APIManager.endpoints.CDN.icons(this.id, this.icon);
 	}
 
+
+	patchRaw(guild) {
+		this.id = guild.id;
+
+		this.name = guild.name;
+		this.icon = guild.icon;
+		this.splash = guild.splash;
+		this.ownerID = guild.owner_id;
+		this.region = guild.region;
+
+		this.afkChannelID = guild.afk_channel_id;
+		this.afkTimeout = guild.afk_timeout;
+		this.embedEnabled = guild.embed_enabled;
+
+		this.verificationLevel = Constants.GUILD_VERIFICATION_LEVEL[guild.verification_level];
+		this.defaultMessageNotifications = Constants.GUILD_DEFAULT_MSG_NOTIFICATION[guild.default_message_notifications]; // TODO: Some work
+		this.embedChannelID = guild.embed_channel_id ? guild.embed_channel_id : this.embedChannelID;
+		this.explicitContentFilter = Constants.GUILD_EXPLICIT_CONTENT_FILTERS[guild.explicit_content_filter];
+		this.features = guild.features;
+		this.mfaLevel = Constants.GUILD_MFA_LEVEL[guild.mfa_level];
+
+		this.widgetChannelID = guild.widget_channel_id ? guild.widget_channel_id : this.widgetChannelID
+		this.widgetEnabled = guild.widget_enabled ? guild.widget_enabled : this.widgetEnabled;
+		this.large = guild.large;
+		this.unavailable = guild.unavailable;
+
+		this.memberCount = guild.member_count ? guild.member_count : this.memberCount;
+		this.voiceStates = guild.voice_states;
+		this.channels = guild.channels;
+		this.systemChannelID = guild.system_channel_id ? guild.system_channel_id : this.systemChannelID;
+
+		this.roles = new GuildRolesCaching(this.client, this, guild.roles ? guild.roles : this.roles.array());
+		this.emojis = new GuildEmojisCaching(this.client, this, guild.emojis ? guild.emojis : this.emojis.array());
+		this.members = new GuildMembersCaching(this.client, this, guild.members ? guild.members : this.members.array());
+		this.presences = new GuildPresenceCaching(this.client, guild.presences ? guild.presences : this.presences.array());
+	}
 }
 
 module.exports = Guild;

@@ -2,6 +2,7 @@ module.exports =
 class EmbedMessage {
 	constructor() {
 		this.fields = [];
+		this.color = 0x9B0000
 		this.description = null;
 		this.title = null;
 		this.footer = null;

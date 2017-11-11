@@ -7,6 +7,29 @@ class Constants {
 
 		this.VERSION = '0.0.1';
 
+		this.GUILD_MFA_LEVEL = {
+			0: 'NONE',
+			1: 'ELEVATED'
+		}
+
+		this.GUILD_VERIFICATION_LEVEL = {
+			0: 'NONE',
+			1: 'VEREFIED_MAIL',
+			2: 'REGISTERED_ABOVE_FIVE_MINUTES',
+			3: 'MEMBER_ABOVE_TEN_MINUTES',
+			4: 'PHONE_VERIFICATION'
+		}
+
+		this.GUILD_DEFAULT_MSG_NOTIFICATION = {
+			0: 'EVERYTHING',
+			1: 'MENTIONS_ONLY'
+		}
+
+		this.GUILD_EXPLICIT_CONTENT_FILTERS = {
+			0: 'NONE',
+			1: 'MEMBERS_WITHOUT_ROLES',
+			2: 'EVERY_MEMBER'
+		}
 		let CDN_URL = 'https://cdn.discordapp.com/'
 		this.CDN = {
 			url: 'https://cdn.discordapp.com/',

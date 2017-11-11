@@ -45,6 +45,10 @@ class Box extends Map {
     this.Barray = null;
     return super.set(key, value);
   }
+
+  first() {
+    return this.array()[0]
+  }
 }
 
 module.exports = Box;

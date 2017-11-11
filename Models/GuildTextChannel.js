@@ -41,7 +41,7 @@ class GuildTextChannel extends TextBasedChannel {
 		this.nsfw = channel.nsfw ? channel.nsfw : this.nsfw || false;
 		this.parentChannelID = channel.parent_id ? channel.parent_id : this.parentChannelID || null;
 		this.position = channel.position ? channel.position : this.position || 0;
-
+		this.permissionOverwrites = channel.permission_overwrites
 		// TODO: permissionOverwrites
 	}
 }
