@@ -9,7 +9,7 @@ class User {
 	}
 
 	get tag() {
-		return this.username + this.discriminator
+		return '#' + this.username + this.discriminator
 	}
 
 	toString() {
