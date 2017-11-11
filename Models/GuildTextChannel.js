@@ -35,6 +35,15 @@ class GuildTextChannel extends TextBasedChannel {
 		});
 	}
 
+	patchRaw(channel) {
+		this.name = channel.name ? channel.name : this.name || '';
+		this.topic = channel.topic ? channel.topic : this.topic || '';
+		this.nsfw = channel.nsfw ? channel.nsfw : this.nsfw || false;
+		this.parentChannelID = channel.parent_id ? channel.parent_id : this.parentChannelID || null;
+		this.position = channel.position ? channel.position : this.position || 0;
+
+		// TODO: permissionOverwrites
+	}
 }
 
 module.exports = GuildTextChannel;
