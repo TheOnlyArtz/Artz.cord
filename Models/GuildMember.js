@@ -33,7 +33,7 @@ class GuildMember extends Structure {
       .bans
       .create(guildID, this.user.id);
 
-      this.client.APIManager.makeRequest('delete', endpoint, payload).then(res => {
+      this.client.APIManager.makeRequest('put', endpoint, payload).then(res => {
         console.log(res);
       })
       .catch(e => {
