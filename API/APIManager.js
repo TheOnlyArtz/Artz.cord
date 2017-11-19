@@ -18,11 +18,11 @@ class APIManager {
 		this.queueRunning = false;
 	}
 
-	makeRequest(method, endpoint, data = null, timeout = null, files = null) {
+	makeRequest(method, endpoint, data = null, options, timeout = null, files = null) {
 		const that = this;
 		const RequestPromise =
         new Promise((resolve, reject) => {
-	const item = {data, method, endpoint, resolve, reject};
+	const item = {options, data, method, endpoint, resolve, reject};
 	that.queue.push(item);
 	if (!that.queueRunning) {
 		that.startQueue();
@@ -60,7 +60,7 @@ class APIManager {
 				const item = this.queue.shift();
 				try {
 					this.lastRequest = Date.now();
-					const request = this.APIRequest(item.method, item.endpoint, item.data, item.files);
+					const request = this.APIRequest(item.method, item.endpoint, item.data, item.options, item.files);
 					item.resolve(request);
 				} catch (e) {
 					this.lastRequest = Date.now();
@@ -82,9 +82,8 @@ class APIManager {
 				'Content-type': 'application/json'
 			};
 			const request = unirest[method](url);
-
 			if (options && options.reason) {
-				headers['X-Audit-Log-Reason'] = encodeURIComponent(that.options.reason);
+				headers['X-Audit-Log-Reason'] = encodeURIComponent(options.reason);
 			}
 			request.headers(headers);
 

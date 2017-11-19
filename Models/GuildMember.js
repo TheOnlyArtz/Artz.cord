@@ -23,18 +23,16 @@ class GuildMember extends Structure {
   }
 
   async ban(options) {
-    const payload = {
-      reason : options ? options.reason || null : null
-    }
-
     const guildID = this.guild.id;
     const endpoint = this.client.APIManager.endpoints
       .ENDPOINTS_GUILDS
       .bans
       .create(guildID, this.user.id);
+      const payload = {
+        reason: options && options.reason ? options.reason : null
+      }
 
-      this.client.APIManager.makeRequest('put', endpoint, payload).then(res => {
-        console.log(res);
+      this.client.APIManager.makeRequest('put', endpoint, {}, payload).then(res => {
       })
       .catch(e => {
         throw e
@@ -44,7 +42,7 @@ class GuildMember extends Structure {
   async kick(options) {
 
     const payload = {
-      reason : options ? options.reason || null : null
+      reason : options && options.reason ? options.reason : null
     }
 
     const guildID = this.guild.id;
@@ -54,7 +52,7 @@ class GuildMember extends Structure {
       .members
       .remove(guildID, this.user.id);
       try {
-        let res = await this.client.APIManager.makeRequest('delete', endpoint, payload);
+        let res = await this.client.APIManager.makeRequest('delete', endpoint, {}, payload);
       } catch (e) {
         throw new Error(e);
       }

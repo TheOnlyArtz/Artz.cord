@@ -109,7 +109,7 @@ class Constants {
 				modifyPositions: id => `guilds/${id}/roles`,
 				list: id => `guilds/${id}/roles`,
 				modify: (id, rID) => `guilds/${id}/roles/${rID}`,
-				create: (id, rID) => `guilds/${id}/roles/${rID}`
+				delete: (id, rID) => `guilds/${id}/roles/${rID}`
 			},
 			prune: {
 				begin: id => `guilds/${id}/prune`,
