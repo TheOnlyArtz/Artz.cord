@@ -6,8 +6,8 @@ The most shittiest API *rapper out there.
 ```js
 //setGame
 
-const discord = require('artzycord');
-const Client = new discord();
+const Discord = require('artzycord');
+const Client = new Discord.Client();
 
 client.on('ready', () => {
 	client.user.setGame({
@@ -16,4 +16,6 @@ client.on('ready', () => {
 
 	console.log("Socket connected, Client is ready!")
 })
+
+client.connect("TOKEN")
 ```
