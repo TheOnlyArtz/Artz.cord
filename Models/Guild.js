@@ -39,9 +39,9 @@ class Guild extends Structure {
 
 		this.applicationID = data.application_id;
 		this.voiceStates = data.voice_states;
-		this.channels = data.channels;
 		this.systemChannelID = this.system_channel_id;
 
+		this.channels = new GuildChannelsCaching(client, data.channels);
 		this.roles = new GuildRolesCaching(client, this, data.roles);
 		this.emojis = new GuildEmojisCaching(client, this, data.emojis);
 		this.members = new GuildMembersCaching(client, this, data.members);
@@ -61,6 +61,12 @@ class Guild extends Structure {
 		return this.client.APIManager.makeRequest('post', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.channels.create(this.id), options);
 	}
 
+	/**
+	*
+	*
+	*
+	*
+	*/
 	async deleteChannel(snowflake) {
 		if (!options) {
 			throw new Error('Please specify the channel ID you want to delete.');
@@ -68,6 +74,14 @@ class Guild extends Structure {
 		return this.client.APIManager.makeRequest('delete', Constants.ENDPOINTS_CHANNELS.delete(snowflake));
 	}
 
+	/**
+	* Lets you change guild's name
+	* @param {String} name
+	* @returns {Promise}
+	* @async
+	* @example
+	* Guild.changeName('ArtzyCordROCKS');
+	*/
 	async changeName(name) {
 		if (!name instanceof String) {
 			throw new TypeError('A name can\'t be something else than a string.');
@@ -83,12 +97,29 @@ class Guild extends Structure {
 			}
 	}
 
+	/**
+	* Lets you delete a guild
+	* @async
+	* @example
+	* Guild.delete()
+	*/
 	async delete() {
 			this.client.APIManager.makeRequest('delete', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.delete(this.id))
 				.catch(e => {return e});
 	}
 
- async banMember(snowflake, options = {"delete-message-days": 0}) {
+/**
+* Lets you ban a GuildMember via Snowflake
+* @param {String} Snowflake
+* @param {Number} days
+* @param {String} reason
+* @returns {Promise}
+* @async
+* @example
+* // bans a guild member
+* Guild.banMember("xxxxxxxxxxx",7, 'Reason, Because I can?');
+*/
+ async banMember(snowflake, days, reason) {
 		if (!snowflake) throw new Error('Can\'t complete the ban, please supply a member\'s ID.');
 		if (options.days) {
 				options = {
@@ -99,6 +130,14 @@ class Guild extends Structure {
 					.catch(e => {return e})
 	}
 
+/**
+* Lets you unban a GuildMember via Snowflake
+* @param {String} Snowflake
+* @async
+* @example
+* // Unban a user
+* Guild.unbanMember("xxxxxxxxxxx");
+*/
  async unbanMember(snowflake) {
 		if (!snowflake) throw new Error('Can\'t complete the unban, please supply a member\'s ID.');
 		const res = this.client.APIManager.makeRequest('delete', this.client.APIManager.endpoints.ENDPOINTS_GUILDS.bans.remove(this.id, snowflake)).catch(e => {
