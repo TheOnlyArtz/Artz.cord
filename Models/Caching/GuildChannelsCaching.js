@@ -7,11 +7,11 @@ const GuildTextChannel = require(path.join(__dirname, '..', 'GuildTextChannel.js
 const DMChannel = require(path.join(__dirname, '..', 'DMChannel.js'));
 const VoiceChannel = require(path.join(__dirname, '..', 'VoiceChannel.js'));
 const GroupDM = require(path.join(__dirname, '..', 'GroupDM.js'));
+const ChannelCategory = require(path.join(__dirname, '..', 'CategoryChannel.js'));
 
 const Box = require('../Box.js');
 class GuildsChannelsCaching {
   constructor(client, channel) {
-    const ChannelCaching = require('./ChannelCaching.js');
     Object.defineProperty(this, 'client', {value: client});
     this.channels = new Box();
     channel.forEach(channel => {
@@ -30,7 +30,7 @@ class GuildsChannelsCaching {
   				 return this.channels.set(channel.id, new GroupDM(that.client, channel));
   				break;
   			case 4:
-  				 // TODO: Channel Category structure.
+            return this.client.channels.set(channel.id, new ChannelCategory(that.client, channel));
   				break;
         }
         });

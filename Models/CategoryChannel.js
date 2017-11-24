@@ -7,21 +7,22 @@ const Structure = require('./Structure.js');
 * @property {Number} type Channel's type
 * @property {String} name Channel's name
 * @property {String} id Channel's ID
+* @property {Number} userLimit Channel's user limit
 * @property {Array|Object} permissionOverwrites Channel's permission overwrites
-* @property {Boolean} nsfw Whether the Channel is nsfw or not
 * @property {Number} position Channel's position
-* @property {String} parentChannelID Parent channel ID
-* @property {String} guildID Guild's ID (The channel is in)
+* @property {Number} bitrate Channel's bitrate
 */
 class CategoryChannel extends Structure {
   constructor(client, channel) {
+    super(client);
     this.type = channel.type;
     this.name = channel.name;
     this.id = channel.id;
-    this.permissionOverwrites = channel.permissionOverwrites || channel.permission_overwrites;
-    this.nsfw = channel.nsfw;
+    this.userLimit = channel.user_limit;
+    this.permissionOverwrites = channel.permission_overwrites;
     this.position = channel.position;
-    this.parentChannelID = channel.parentID || channel.parent_id
-    this.guildID = channel.guildID || channel.guild_id;
+    this.bitrate = channel.bitrate
   }
 }
+
+module.exports = CategoryChannel

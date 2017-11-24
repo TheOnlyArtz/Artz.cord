@@ -58,6 +58,7 @@ class ChannelCaching {
 		const DMChannel = require(path.join(__dirname, '..', 'DMChannel.js'));
 		const VoiceChannel = require(path.join(__dirname, '..', 'VoiceChannel.js'));
 		const GroupDM = require(path.join(__dirname, '..', 'GroupDM.js'));
+		const ChannelCategory = require(path.join(__dirname, '..', 'CategoryChannel.js'));
 
 
 		// console.log(data);
@@ -76,7 +77,7 @@ class ChannelCaching {
 				 return this.client.channels.set(data.id, new GroupDM(that.client, data));
 				break;
 			case 4:
-				 // TODO: Channel Category structure.
+				 return this.client.channels.set(data.id, new ChannelCategory(that.client, data));
 				break;
 		}
 	}
@@ -91,7 +92,7 @@ class ChannelCaching {
 		const DMChannel = require(path.join(__dirname, '..', 'DMChannel.js'));
 		const VoiceChannel = require(path.join(__dirname, '..', 'VoiceChannel.js'));
 		const GroupDM = require(path.join(__dirname, '..', 'GroupDM.js'));
-
+		const ChannelCategory = require(path.join(__dirname, '..', 'CategoryChannel.js'));
 
 		const that = this;
 		switch (data.type) {
@@ -108,7 +109,7 @@ class ChannelCaching {
 				 return new GroupDM(that.client, data);
 				break;
 			case 4:
-				 // TODO: Channel Category structure.
+					return new ChannelCategory(that.client, data)
 				break;
 		}
 	}

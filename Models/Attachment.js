@@ -12,7 +12,7 @@ class Attachment extends Structure{
     this.width = data.width;
     this.height = data.height;
     this.url = data.url;
-    this.size = data.size; //TODO: Check size units
+    this.size = data.size;
     this.id = data.id;
     this.name = data.filename;
   }
