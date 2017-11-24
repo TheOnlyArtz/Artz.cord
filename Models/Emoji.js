@@ -1,7 +1,7 @@
 const User = require('./User.js');
 const Structure = require('./Structure.js')
 /**
-* An Emoji Structure meant to control over Empjis properties and methods
+* An Emoji Structure meant to control over emojis properties and methods
 * @extends Structure
 * @param {Object} client ArtzyCord's Client instance
 * @param {Object} data A valid Emoji data Object
