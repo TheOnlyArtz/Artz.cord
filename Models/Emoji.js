@@ -17,6 +17,17 @@ class Emoji extends Structure{
     this.managed = data.managed;
   }
 
+  async delete() {
+
+  }
+
+  async changeName() {
+
+  }
+
+  async modify() {
+
+  }
 
 }
 
