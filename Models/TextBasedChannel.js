@@ -8,8 +8,8 @@ const Box = require('./Box.js');
 /**
 * A TextBasedChannel Structure meant to control over TextBasedChannel properties and methods
 * @extends Structure
-* @param client ArtzyCord's Client instance
-* @param channel A valid Text based channel data Object
+* @param {Object} client ArtzyCord's Client instance
+* @param {Object} channel A valid Text based channel data Object
 */
 class TextBasedChannel extends Structure {
 	constructor(client, channel) {

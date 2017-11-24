@@ -20,8 +20,8 @@ const Structure = require(path.join(__dirname, '..', 'Models', 'Structure.js'));
 /**
 * A Message Structure meant to control over messages properties and methods
 * @extends Structure
-* @param client Artzycord's Client instance
-* @param data A valid Message data Object
+* @param {Object} client Artzycord's Client instance
+* @param {Object} data A valid Message data Object
 */
 module.exports = class Message extends Structure{
 	constructor(client, data) {

@@ -14,8 +14,8 @@ const ChannelCaching = require('./Caching/ChannelCaching.js');
 /**
 * A Guild Structure meant to control over Guild properties and methods
 * @extends Structure
-* @param client ArtzyCord's Client instance
-* @param data A valid Guild data Object
+* @param {Object} client ArtzyCord's Client instance
+* @param {Object} data A valid Guild data Object
 */
 class Guild extends Structure {
 	constructor(client, data) {

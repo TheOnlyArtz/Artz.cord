@@ -3,8 +3,8 @@ const Structure = require('./Structure.js');
 /**
 * A User Structure meant to control over User properties and methods
 * @extends Structure
-* @param client ArtzyCord's Client instance
-* @param data A valid User data Object
+* @param {Object} client ArtzyCord's Client instance
+* @param {Object} data A valid User data Object
 */
 class User extends Structure {
 	constructor(client, data) {

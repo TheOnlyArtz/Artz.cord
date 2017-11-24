@@ -1,8 +1,8 @@
 /**
 * An VoiceChannel Structure meant to control over VoiceChannel properties and methods
 * @extends Structure
-* @param client ArtzyCord's Client instance
-* @param channel A valid VoiceChannel data Object
+* @param {Object} client ArtzyCord's Client instance
+* @param {Object} channel A valid VoiceChannel data Object
 */
 class VoiceChannel {
   constructor(client, channel) {

@@ -5,9 +5,9 @@ const Box = require('./Box.js')
 /**
 * A GuildMember class meant to control over GuildMember properties and methods
 * @extends Structure A base Structure class
-* @param client Artzycord's Client instance
-* @param guild A valid Guild instance
-* @param member A valid Guild Member data Object
+* @param {Object} client Artzycord's Client instance
+* @param {Object} guild A valid Guild instance
+* @param {Object} member A valid Guild Member data Object
 */
 class GuildMember extends Structure {
   constructor(client, guild, member) {

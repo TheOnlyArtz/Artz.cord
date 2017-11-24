@@ -1,9 +1,9 @@
+
 /**
 * A Box Add-on meant to make our lives easier
 * @extends Map
-* @param iterable An iterable instance would be something like an Array
+* @param {Array} iterable An iterable instance would be something like an Array
 */
-
 class Box extends Map {
   constructor(iterable) {
     super(iterable);
