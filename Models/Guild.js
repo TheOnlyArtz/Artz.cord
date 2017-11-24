@@ -40,7 +40,7 @@ const ChannelCaching = require('./Caching/ChannelCaching.js');
 * @property {Boolean} unavailable Wheter the Guild is unavailable or not
 * @property {Number} memberCount Guild's member count
 *
-* @property {Box<GuildChannel>} channels A Box of GuildChannel instances
+* @property {Box<TextBasedChannel|CategoryChannel|VoiceChannel>} channels A Box of GuildChannel instances
 * @property {Box<Role>} roles A Box of GuildRoles instances
 * @property {Box<Emoji>} emojis A Box of Emoji instances
 * @property {Box<GuildMember>} members A Box of GuildMember instances
