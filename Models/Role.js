@@ -68,7 +68,6 @@ class Role extends Structure {
   * @param {Number} [options.color = 0] The RGB volor value
   * @param {Boolean} [options.hoist = false] Whether the role should be displayed separately in the sidebar
   * @param {Boolean} [options.mentionable = false] Whether the role should ne mentionable
-  * @param {Boolean} [options.position] The role's position
   * @example
   * // Modifing a role to be an Admin role
   * Role.modify({name: "Administrator", permissions: 0x8, color: 0xCE2E2E, hoist: true, mentionable: false})
@@ -107,7 +106,7 @@ class Role extends Structure {
     const url = this.client.APIManager.endpoints.ENDPOINTS_GUILDS.roles.modifyPositions(this.guild.id);
     const payload = {
       id: this.id,
-      position: 1
+      position: position
     }
     try {
       let request = await this.client.APIManager.makeRequest('patch', url, payload)
