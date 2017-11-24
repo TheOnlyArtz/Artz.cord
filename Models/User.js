@@ -8,6 +8,7 @@ const Structure = require('./Structure.js');
 */
 class User extends Structure {
 	constructor(client, data) {
+		super(client);
 		this.id = data.id;
 		this.username = data.username;
 		this.discriminator = data.discriminator;
