@@ -25,6 +25,8 @@ class TextBasedChannel extends Structure {
 	/**
 	* Send a text Message to a text channel channel
 	* @param {String} message The actual message content
+	* @param {Object} options The options keys
+	* @param {Boolean} [options.tts = false] Whether the message will be tts or not
 	* @param {String} [options.markup = null] What codeblock markup the message will get
 	* @example
 	* // Send a message with markup
