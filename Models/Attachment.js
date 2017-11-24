@@ -5,6 +5,12 @@ const Structure = require('./Structure.js');
 * @extends Structure
 * @param {Object} client ArtzyCord's Client instance
 * @param {Object} data A valid Attachment data Object
+* @property {Number?} width width of the file (if image)
+* @property {Number?} height height of the file (if image)
+* @property {String} url URL of the Attachment
+* @property {Number} size Size of file (Units: bytes)
+* @property {String} id ID of the Attachment
+* @property {String} name Name of the Attachment 
 */
 class Attachment extends Structure{
   constructor(client, data) {
