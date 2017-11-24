@@ -27,7 +27,7 @@ class Role extends Structure {
   * @returns {Promise}
   * @example
   * Role.delete()
-  *   .catch(e => console.error(e))l
+  *   .catch(e => console.error(e));
   */
   async delete() {
     const url = this.client.APIManager.endpoints.ENDPOINTS_GUILDS.roles.delete(this.guild.id, this.id);
