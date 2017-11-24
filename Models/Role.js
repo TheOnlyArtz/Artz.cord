@@ -63,6 +63,7 @@ class Role extends Structure {
 
 
   /**
+  * @param {Object} options The option keys
   * @param {String} [options.name = "new role"] The name of the role
   * @param {Number} [options.permissions = "@everyone permissions"] bitwise of the enabled or disabled permissions
   * @param {Number} [options.color = 0] The RGB volor value
