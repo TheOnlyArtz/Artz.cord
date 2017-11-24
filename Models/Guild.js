@@ -16,6 +16,40 @@ const ChannelCaching = require('./Caching/ChannelCaching.js');
 * @extends Structure
 * @param {Object} client ArtzyCord's Client instance
 * @param {Object} data A valid Guild data Object
+*
+* @property {String} id Guild's ID
+* @property {String} name Guild's name
+* @property {String} icon Guild's icon code
+* @property {String} splash Guild's splash
+*
+* @property {String} ownerID Guild's ownerID
+* @property {String} region Guild's server region
+* @property {Number} afkTimeout Guild's AFK timeout (Seconds)
+* @property {Boolean} embedEnabled Whether Guild's embed is enabled or not
+* @property {Number} verificationLevel Guild's verificationLevel
+*
+* @property {Number} defaultMessageNotifications Guild's default message notifications level
+* @property {String} embedChannelID Guild's embed channel ID
+* @property {Number} explicitContentFilter Guild's content filter level
+* @property {Box} features A box of String instances contains Guild's features
+*
+* @property {String} widgetChannelID Guild's WidgetChannel's ID
+* @property {Number} mfaLevel Guild's MFA level
+* @property {Boolean} widgetEnabled Whether widget is enabled or not
+* @property {Boolean} large Whether the Guild is large or not
+* @property {Boolean} unavailable Wheter the Guild is unavailable or not
+* @property {Number} memberCount Guild's member count
+*
+* @property {Box<GuildChannel>} channels A Box of GuildChannel instances
+* @property {Box<Role>} roles A Box of GuildRoles instances
+* @property {Box<Emoji>} emojis A Box of Emoji instances
+* @property {Box<GuildMember>} members A Box of GuildMember instances
+* @property {Box<Presence>} presences A Box of Presence instances
+*
+* @property {String} applicationID Guild's app ID
+* @property {Array} voiceStates An array of the Guild's voice states
+* @property {TextBasedChannel} systemChannel A channel where all the users can access
+* @property {VoiceChannel} afkChannel A channel where AFK people go into
 */
 class Guild extends Structure {
 	constructor(client, data) {
@@ -27,7 +61,6 @@ class Guild extends Structure {
 
 		this.ownerID = data.owner_id;
 		this.region = data.region;
-		this.afkChannelID = data.afk_channel_id;
 		this.afkTimeout = data.afk_timeout;
 		this.embedEnabled = data.embed_enabled;
 		this.verificationLevel = data.verification_level;
@@ -35,7 +68,11 @@ class Guild extends Structure {
 		this.defaultMessageNotifications = data.default_message_notifications;
 		this.embedChannelID = data.embed_channel_id;
 		this.explicitContentFilter = data.explicit_content_filter;
-		this.features = new Box(data.features);
+		this.features = new Box
+
+		data.features.forEach(e => {
+			this.features.set(e, e)
+		})
 
 		this.widgetChannelID = data.widget_channel_id;
 		this.mfaLevel = data.mfa_level;
@@ -44,20 +81,22 @@ class Guild extends Structure {
 		this.unavailable = data.unavailable;
 		this.memberCount = data.member_count;
 
-		this.applicationID = data.application_id;
-		this.voiceStates = data.voice_states;
-		this.systemChannelID = this.system_channel_id;
-
 		this.channels = new GuildChannelsCaching(client, data.channels);
 		this.roles = new GuildRolesCaching(client, this, data.roles);
 		this.emojis = new GuildEmojisCaching(client, this, data.emojis);
 		this.members = new GuildMembersCaching(client, this, data.members);
 		this.presences = new GuildPresenceCaching(client, data.presences);
+
+		this.applicationID = data.application_id;
+		this.voiceStates = data.voice_states;
+		this.systemChannel = this.channels.get(data.system_channel_id) || null;
+		this.afkChannel = this.channels.get(data.afk_channel_id) || null;
 	}
 
 	/**
+	* @param {Object} options The options keys
 	* @param {String} [options.name] Channel's name
-	* @param {String} [options.type] Channel type, example: voice
+	* @param {String} [options.type] Channel type, options: text, voice
 	* @param {Number} [options.bitrate] Channel's bitrate (VOICE ONLY)
 	* @param {Number} [options.user_limit] Channel's user limit (VOICE ONLY)
 	* @param {Array<PermissionOverwrites>} [options.permission_overwrites] Channel's Permission overwrites
@@ -68,12 +107,24 @@ class Guild extends Structure {
 		if (!options instanceof Object) {
 			throw new TypeError('Channel properties must be inside an Object');
 		}
+
 		if (!options) {
 			throw new Error('Cannot create a channel without it\'s properties.');
 		}
+
 		if (!options.name) {
 			throw new Error('Please supply the name for the channel under the property of name.');
 		}
+
+		switch (options.type) {
+			case 'text' || 0:
+					options.type = 0
+				break;
+			case 'voice' || 2:
+					options.type = 2
+				break;
+		}
+
 		let channelToReturn = null;
 
 		try {
