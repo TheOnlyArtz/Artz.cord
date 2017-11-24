@@ -1,12 +1,3 @@
-/*
-  Cache channels preventing API spam
-*/
-const path = require('path');
-
-const GuildTextChannel = require(path.join(__dirname, '..', 'GuildTextChannel.js'));
-const DMChannel = require(path.join(__dirname, '..', 'DMChannel.js'));
-const VoiceChannel = require(path.join(__dirname, '..', 'VoiceChannel.js'));
-const GroupDM = require(path.join(__dirname, '..', 'GroupDM.js'));
 class ChannelCaching {
 	constructor(client, iterable) {
 		this.iterable = iterable;
@@ -58,6 +49,18 @@ class ChannelCaching {
 	}
 
 	filterThroughTypes(data) {
+		/*
+			Cache channels preventing API spam
+		*/
+		const path = require('path');
+
+		const GuildTextChannel = require(path.join(__dirname, '..', 'GuildTextChannel.js'));
+		const DMChannel = require(path.join(__dirname, '..', 'DMChannel.js'));
+		const VoiceChannel = require(path.join(__dirname, '..', 'VoiceChannel.js'));
+		const GroupDM = require(path.join(__dirname, '..', 'GroupDM.js'));
+
+
+		// console.log(data);
 		const that = this;
 		switch (data.type) {
 			case 0:
@@ -71,6 +74,38 @@ class ChannelCaching {
 				break;
 			case 3:
 				 return this.client.channels.set(data.id, new GroupDM(that.client, data));
+				break;
+			case 4:
+				 // TODO: Channel Category structure.
+				break;
+		}
+	}
+
+	filterThroughTypesRAWDATA(data) {
+		/*
+			Cache channels preventing API spam
+		*/
+		const path = require('path');
+
+		const GuildTextChannel = require(path.join(__dirname, '..', 'GuildTextChannel.js'));
+		const DMChannel = require(path.join(__dirname, '..', 'DMChannel.js'));
+		const VoiceChannel = require(path.join(__dirname, '..', 'VoiceChannel.js'));
+		const GroupDM = require(path.join(__dirname, '..', 'GroupDM.js'));
+
+
+		const that = this;
+		switch (data.type) {
+			case 0:
+				return  new GuildTextChannel(that.client, data);
+				break;
+			case 1:
+				 return new DMChannel(that.client, data);
+				break;
+			case 2:
+				 return new VoiceChannel(that.client, data);
+				break;
+			case 3:
+				 return new GroupDM(that.client, data);
 				break;
 			case 4:
 				 // TODO: Channel Category structure.
