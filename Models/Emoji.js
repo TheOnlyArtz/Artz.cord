@@ -1,6 +1,13 @@
 const User = require('./User.js');
 const Structure = require('./Structure.js')
 class Emoji extends Structure{
+
+  /**
+  * An Emoji Structure meant to control over Empjis properties and methods
+  * @extends Structure
+  * @param {Object} client ArtzyCord's Client instance
+  * @param {Object} data A valid Emoji data Object
+  */
   constructor(client, data) {
     super(client);
     this.id = data.id;

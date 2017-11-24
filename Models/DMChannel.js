@@ -1,4 +1,11 @@
 const TextBasedChannel = require('./TextBasedChannel.js');
+
+/**
+* A DMChannel Structure meant to control over DMChannel properties and methods
+* @extends TextBasedChannel
+* @param {Object} client ArtzyCord's Client instance
+* @param {Object} data A valid DMChannel data Object
+*/
 class DMChannel extends TextBasedChannel {
   constructor(client, channel) {
     super(client, channel);

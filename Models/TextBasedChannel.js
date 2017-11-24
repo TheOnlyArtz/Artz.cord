@@ -3,16 +3,35 @@ const Snowflake = require('../Util/Snowflake.js');
 const constants = require('../Constants.js');
 const Constants = new constants();
 const EmbedMessage = require('../EmbedMessage.js');
+const Box = require('./Box.js');
+
+/**
+* A TextBasedChannel Structure meant to control over TextBasedChannel properties and methods
+* @extends Structure
+* @param client ArtzyCord's Client instance
+* @param channel A valid Text based channel data Object
+*/
 class TextBasedChannel extends Structure {
 	constructor(client, channel) {
 		super(client);
 		this.id = channel.id;
+		this.messages = new Box;
 		this.type = channel.type;
 		this.guildID = channel.guildID || null;
 		this.lastMessageID = channel.lastMessageID || channel.last_message_id;
 		this.createdTimestamp = Snowflake.deconstruct(this.id).timestamp;
 	}
 
+	/**
+	* Send a text Message to a text channel channel
+	* @param {String} message The actual message content
+	* @param {String} [options.markup = null] What codeblock markup the message will get
+	* @example
+	* // Send a message with markup
+	* Chnnael.send('Test 123', {markup: "xl"})
+	* // Send a tts message
+	* Channel.send('Text to speech', {tts: true});
+	*/
 	async send(message, options) {
 		const that = this;
 		return new Promise(async (resolve, reject) => {
@@ -34,12 +53,16 @@ class TextBasedChannel extends Structure {
 				}
 			} else {
 				let content = message;
+				if (options && options.tts) {
+
+				}
 				if (options && options.markup) {
 					content = `\`\`\`${options.markup}\n${content}\`\`\``
 				}
 
 				const payload = {
 					content: content,
+					tts: options && options.tts ? options.tts : null
 				}
 
 				try {

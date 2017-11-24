@@ -1,13 +1,19 @@
+/**
+* An VoiceChannel Structure meant to control over VoiceChannel properties and methods
+* @extends Structure
+* @param client ArtzyCord's Client instance
+* @param channel A valid VoiceChannel data Object
+*/
 class VoiceChannel {
   constructor(client, channel) {
     this.id = channel.id;
     this.type = channel.type;
-    this.userLimit = channel.userLimit;
+    this.userLimit = channel.userLimit || channel.user_limit;
     this.name = channel.name;
     this.position = channel.position;
-    this.permissionOverwrites = channel.permissionOverwrites;
+    this.permissionOverwrites = channel.permissionOverwrites || channel.permission_overwrites;
     this.bitrate = channel.bitrate;
-    this.parentChannelID = channel.parentChannelID
+    this.parentChannelID = channel.parentChannelID || channel.parent_id
   }
 
   patchRaw(channel) {

@@ -3,6 +3,12 @@ const GAME_TYPES = {
 	1: 'Streaming'
 };
 
+/**
+* A Game Structure meant to integrate with Presence class and control key properties
+* @extends Structure
+* @param {Object} client ArtzyCord's Client instance
+* @param {Object} game A valid Game data Object
+*/
 class Game {
 	constructor(client, game) {
 		this.name = game.name;

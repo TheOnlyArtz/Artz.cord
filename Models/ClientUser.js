@@ -2,6 +2,12 @@ const Box = require('./Box.js');
 const Presence = require('./Presence.js');
 const Structure = require('./Structure.js');
 
+/**
+* A ClientUser Structure meant to control over Client's User properties and methods
+* @extends Structure
+* @param {Object} client ArtzyCord's Client instance
+* @param {Object} data A valid User object
+*/
 class ClientUser extends Structure {
 	constructor(client, data) {
 		super(client);
