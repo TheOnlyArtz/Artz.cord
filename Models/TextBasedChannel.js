@@ -10,6 +10,12 @@ const Box = require('./Box.js');
 * @extends Structure
 * @param {Object} client ArtzyCord's Client instance
 * @param {Object} channel A valid Text based channel data Object
+* @property {String} id Channel's ID
+* @property {Box} messages Box which contains message instances
+* @property {Number} type Channel's type
+* @property {String} guildID Channel's Guild ID
+* @property {String} lastMessageID Channel's last message ID
+* @property {Date} createdTimestamp When the channel has been created
 */
 class TextBasedChannel extends Structure {
 	constructor(client, channel) {
