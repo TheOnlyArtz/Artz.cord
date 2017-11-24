@@ -9,6 +9,8 @@ class MessageCreateEvent extends Basic
 
   handle: (packet) ->
     MessageHandler = new Message(this.client, packet);
+    channel = this.client.channels.get(packet.channel_id)
+    channel.messages.set(MessageHandler.id, MessageHandler)
     this.client.emit('Message_Create', MessageHandler);
 
 module.exports = MessageCreateEvent
