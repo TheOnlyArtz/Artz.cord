@@ -10,7 +10,7 @@ const Structure = require(path.join(__dirname, '..', 'Models', 'Structure.js'));
 * @param {Object} client ArtzyCord;s Client instance
 * @param {Object} data A valid Invite data Object
 */
-module.exports = class Invite extends Structure{
+class Invite extends Structure{
 	constructor(client, data) {
 		super(client);
 		this.inviter = client.users.get(data.invite.id) ? client.users.get(data.invite.id) : new User(client, data.inviter);
@@ -23,11 +23,12 @@ module.exports = class Invite extends Structure{
 	}
 
 	/**
-	* @returns {String} Retuns the invite link
+	* @returns {String} Returns the invite link
 	* @readonly
-	* @property
 	*/
 	get link() {
 		return 'https://discord.gg/' + this.inviteCode;
 	}
 };
+
+module.exports = Invite

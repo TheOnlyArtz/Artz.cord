@@ -16,9 +16,6 @@ const APIManager = require('./API/APIManager.js')
 * @property {Box} guilds A box which includes all of the guilds the client is in
 * @property {Box} presences A box which includes all of the presences of the users the client can get
 * @property {Box} emojis A box which includes all of the emojis from the guilds the client is in
-* @property {Date} uptime Returns the uptime of the client (Unix format)
-* @property {String} invite_link Returns Client's invite link (@everyone permissions)
-* @property {Number} status Returns Client's connection status to the websocket
 */
 class Client extends EventEmitter {
   constructor(options = {}) {
@@ -63,14 +60,29 @@ class Client extends EventEmitter {
     });
   }
 
+  /**
+  * Returns client's uptime
+  * @returns {Date}
+  * @readonly
+  */
   get uptime() {
     return Date.now() - this.readyUnix
   }
 
+  /**
+  * Returns client's invite_link (@everyone permissions)
+  * @returns {String}
+  * @readonly
+  */
   get invite_link() {
     return `https://discordapp.com/oauth2/authorize/?permissions=0&scope=bot&client_id=${this.id}`
   }
 
+  /**
+  * Returns client's websocket connection status
+  * @returns {Number}
+  * @readonly
+  */
   get status() {
     return this.ws.connection.status;
   }

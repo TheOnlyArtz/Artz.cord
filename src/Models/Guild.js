@@ -244,7 +244,7 @@ class Guild extends Structure {
 
 	/**
 	* @readonly
-	* @property {String} Returns guildIcon URL
+	* @returns {String} Returns guildIcon URL
 	*/
 	get guildIcon() {
 		return this.client.APIManager.endpoints.CDN.icons(this.id, this.icon);

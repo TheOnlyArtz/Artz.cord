@@ -23,7 +23,7 @@ const Structure = require(path.join(__dirname, '..', 'Models', 'Structure.js'));
 * @param {Object} client Artzycord's Client instance
 * @param {Object} data A valid Message data Object
 */
-module.exports = class Message extends Structure{
+class Message extends Structure{
 	constructor(client, data) {
 		super(client);
 		this.tts = data.tts;
@@ -57,3 +57,5 @@ module.exports = class Message extends Structure{
 
 	}
 }
+
+module.exports = Message;
