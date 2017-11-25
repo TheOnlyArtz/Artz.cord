@@ -40,6 +40,7 @@ class ClientUser extends Structure {
 			status: this.presence.status ? this.presence.status : 'online',
 			game: this.presence.game ? this.presence.game : null
 		};
+
 	}
 
 	/**
