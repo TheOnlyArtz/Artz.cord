@@ -6,6 +6,11 @@ const PresenceCaching = require(path.join(__dirname, '..', 'Models', 'Caching', 
 const UserCaching = require(path.join(__dirname, '..', 'Models', 'Caching', 'UserCaching.js'));
 const EmojisCaching = require(path.join(__dirname, '..', 'Models', 'Caching', 'EmojisCaching.js'));
 
+/**
+* Emits when the client joins a new guild
+* @event Client#Guild_Create
+* @param {Guild} guild The new guild
+*/
 class GuildCreateEvent extends Basic {
   constructor(client) {
     super(client)

@@ -2,6 +2,10 @@ const path = require('path')
 const Basic = require(path.join(__dirname, 'basic.js'));
 const ClientUser = require(path.join(__dirname, '..', 'Models', 'ClientUser.js'));
 
+/**
+* Emits when the client gets connected to the websocket
+* @event Client#ready
+*/
 class ReadyEvent extends Basic {
   constructor(client) {
     super(client);

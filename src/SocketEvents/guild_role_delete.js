@@ -1,5 +1,10 @@
 const path = require('path')
 const Basic = require(path.join(__dirname, 'basic.js'));
+/**
+* Emits when a role gets deleted
+* @event Client#Guild_Role_Delete
+* @param {Role} role The deleted role
+*/
 class GuildRoleDelete extends Basic {
   constructor(client) {
     super(client)

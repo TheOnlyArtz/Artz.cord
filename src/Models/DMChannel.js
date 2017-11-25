@@ -5,6 +5,8 @@ const TextBasedChannel = require('./TextBasedChannel.js');
 * @extends TextBasedChannel
 * @param {Object} client ArtzyCord's Client instance
 * @param {Object} channel A valid DMChannel data Object
+* @property {String} ownerID Channel's creator
+* @property {Array} recipients Array of the channel recipients
 */
 class DMChannel extends TextBasedChannel {
   constructor(client, channel) {

@@ -138,7 +138,7 @@ class Guild extends Structure {
 
 	/**
 	* Delete a GuildChannel via snowflake
-	* @param {String} Snowflake channel's ID
+	* @param {String} snowflake channel's ID
 	* @returns {Promise}
 	* @example
 	* GuildChannel.deleteChannel('xxxxxxxxxxx')
@@ -244,8 +244,7 @@ class Guild extends Structure {
 
 	/**
 	* @readonly
-	* @property
-	* @returns {String} Returns guildIcon URL
+	* @property {String} Returns guildIcon URL
 	*/
 	get guildIcon() {
 		return this.client.APIManager.endpoints.CDN.icons(this.id, this.icon);
@@ -286,6 +285,8 @@ class Guild extends Structure {
 		this.emojis = new GuildEmojisCaching(this.client, this, guild.emojis ? guild.emojis : this.emojis.array());
 		this.members = new GuildMembersCaching(this.client, this, guild.members ? guild.members : this.members.array());
 		this.presences = new GuildPresenceCaching(this.client, guild.presences ? guild.presences : this.presences.array());
+
+		return this
 	}
 }
 

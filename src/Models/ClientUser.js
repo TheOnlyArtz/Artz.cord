@@ -45,7 +45,7 @@ class ClientUser extends Structure {
 	/**
 	* Get user's tag
 	* @readonly
-	* @returns {String} Returns user's tag (username + discriminator)
+	* @property {String} tag Returns user's tag (username + discriminator)
 	* @example
 	* console.log(client.user.tag) // -> user#xxxx
 	*/
@@ -79,7 +79,7 @@ class ClientUser extends Structure {
 
 		this._setPresence(game);
 	}
-	
+
 	/**
 	* Set the game for the client
 	* @param {String} status The status for the client

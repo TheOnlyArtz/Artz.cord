@@ -5,6 +5,10 @@ const TextBasedChannel = require('./TextBasedChannel.js');
 * @extends TextBasedChannel
 * @param {Object} client ArtzyCord's Client instance
 * @param {Object} data A valid GroupDM data Object
+* @property {String} name Group's name
+* @property {String} icon Group's Icon
+* @property {Array} recipients Array of the channel recipients
+* @property {String} ownerID Group's creator
 */
 class GroupDM extends TextBasedChannel {
   constructor(client, data) {

@@ -8,6 +8,12 @@ const Box = require('./Box.js')
 * @param {Object} client Artzycord's Client instance
 * @param {Object} guild A valid Guild instance
 * @param {Object} member A valid Guild Member data Object
+* @property {String} guildID The Guild's ID
+* @property {Boolean} muted Whether the member is voice muted or not
+* @property {Date} joinedAt When did the member joined the guild
+* @property {User} user The user instance
+* @property {Boolean} deaf Whether the member is deaf or not
+* @property {Box} roles The roles the member has
 */
 class GuildMember extends Structure {
   constructor(client, guild, member) {

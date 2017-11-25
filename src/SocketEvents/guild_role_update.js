@@ -1,6 +1,13 @@
 const path = require('path')
 const Basic = require(path.join(__dirname, 'basic.js'));
 const Role = require(path.join(__dirname, '..', 'Models', 'Role.js'));
+
+/**
+* Emits when a role gets updated
+* @event Client#Guild_Role_Update
+* @param {Role} newRole The updated role
+* @param {Role} oldRole The old role
+*/
 class GuildRoleUpdate extends Basic {
   constructor(client) {
     super(client)
@@ -12,6 +19,7 @@ class GuildRoleUpdate extends Basic {
     if (guild) {
         guild.roles.set(packet.role.id, new Role(this.client, guild, packet['role']))
         this.client.emit('Guild_Role_Update', guild.roles.get(packet['role']['id']), OldRole)
+        console.log(guild.roles.get(packet['role']['id']), OldRole);
     }
   }
 }

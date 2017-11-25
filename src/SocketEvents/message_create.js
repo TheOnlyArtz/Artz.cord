@@ -2,6 +2,11 @@ const path = require('path')
 const Basic = require(path.join(__dirname, 'basic.js'));
 const Message = require(path.join(__dirname, '..', 'Models', 'Message.js'));
 
+/**
+* Emits when a message gets created
+* @event Client#Message_Create
+* @param {Message} message The created message
+*/
 class MessageCreateEvent extends Basic {
   constructor(client) {
     super(client);
