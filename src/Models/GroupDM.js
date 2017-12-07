@@ -3,7 +3,7 @@ const TextBasedChannel = require('./TextBasedChannel.js');
 /**
 * A GroupDM Structure meant to control over GroupDM properties and methods
 * @extends TextBasedChannel
-* @param {Object} client ArtzyCord's Client instance
+* @param {Client} client ArtzyCord's Client instance
 * @param {Object} data A valid GroupDM data Object
 * @property {String} name Group's name
 * @property {String} icon Group's Icon

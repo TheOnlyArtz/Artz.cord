@@ -107,7 +107,7 @@ class EmbedMessage {
 	* new EmbedMessage().setColor(0xf1f08f)
 	*/
 	setColor(color) {
-    // TODO: Do some research about converting from HEX / RGB / VSL / RGBA
+    this.color = color ? color : ''
 	}
 
 	/**

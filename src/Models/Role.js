@@ -1,9 +1,9 @@
 const Structure = require('./Structure.js');
-
+const Permissions = require('./Permissions.js');
 /**
 * A GuildRole Structure meant to control over GuildRole properties and methods
 * @extends Structure
-* @param {Object} client ArtzyCord's Client instance
+* @param {Client} client ArtzyCord's Client instance
 * @param {Object} guild A valid Guild instance
 * @param {Object} role A valid Role data Object
 */
@@ -16,7 +16,7 @@ class Role extends Structure {
     this.name = role.name;
     this.managed = role.managed;
     this.color = role.color;
-    this.permissions = role.permissions;
+    this.permissions = new Permissions(client, role.permissions);
     this.id = role.id;
     this.hoist = role.hoist;
   }

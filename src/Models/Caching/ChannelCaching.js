@@ -60,7 +60,6 @@ class ChannelCaching {
 		const GroupDM = require(path.join(__dirname, '..', 'GroupDM.js'));
 		const ChannelCategory = require(path.join(__dirname, '..', 'CategoryChannel.js'));
 
-
 		// console.log(data);
 		const that = this;
 		switch (data.type) {

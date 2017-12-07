@@ -5,7 +5,7 @@ const Structure = require('./Structure.js');
 /**
 * A ClientUser Structure meant to control over Client's User properties and methods
 * @extends Structure
-* @param {Object} client ArtzyCord's Client instance
+* @param {Client} client ArtzyCord's Client instance
 * @param {Object} data A valid User object
 * @property {String} username User's username
 * @property {String} id User's ID
@@ -40,6 +40,10 @@ class ClientUser extends Structure {
 			status: this.presence.status ? this.presence.status : 'online',
 			game: this.presence.game ? this.presence.game : null
 		};
+
+		if (this.presence) {
+			this._setPresence(this.clientPresence)
+		}
 
 	}
 

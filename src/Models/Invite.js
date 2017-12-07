@@ -7,7 +7,7 @@ const Structure = require(path.join(__dirname, '..', 'Models', 'Structure.js'));
 /**
 * An Invite Structure meant to control over Invite properties and methods
 * @extends Structure
-* @param {Object} client ArtzyCord;s Client instance
+* @param {Client} client ArtzyCord;s Client instance
 * @param {Object} data A valid Invite data Object
 */
 class Invite extends Structure{

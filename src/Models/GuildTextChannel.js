@@ -4,7 +4,7 @@ const TextBasedChannel = require('./TextBasedChannel.js');
 /**
 * A GuildTextChannel Structure meant to control over GuildTextChannel properties and methods
 * @extends TextBasedChannel
-* @param {Object} client ArtzyCord's Client instance
+* @param {Client} client ArtzyCord's Client instance
 * @param {Object} data A valid GuildTextChannel data Object
 */
 class GuildTextChannel extends TextBasedChannel {

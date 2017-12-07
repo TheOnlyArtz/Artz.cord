@@ -2,7 +2,7 @@ const Structure = require('./Structure.js');
 
 /**
 * A CategoryChannel Structure meant to control CategoryChannel properties and methods
-* @param {Object} client ArtzyCord's Client instance
+* @param {Client} client ArtzyCord's Client instance
 * @param {Object} channel A valid Channel data Object
 * @property {Number} type Channel's type
 * @property {String} name Channel's name

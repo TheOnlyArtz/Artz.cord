@@ -1,5 +1,5 @@
 /**
-* @param {Object} client ArtzyCord's Client instance
+* @param {Client} client ArtzyCord's Client instance
 */
 class Structure {
 	constructor(client) {

@@ -4,7 +4,7 @@ const Game = require('./Game.js');
 /**
 * A Presence Structure meant to control over Presence properties and methods
 * @extends Structure
-* @param {Object} client ArtzyCord's Client instance
+* @param {Client} client ArtzyCord's Client instance
 * @param {Object} data A valid Presence data Object
 */
 class Presence extends Structure {

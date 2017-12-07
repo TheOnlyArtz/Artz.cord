@@ -4,7 +4,7 @@ const Box = require('./Box.js')
 /**
 * An Emoji Structure meant to control over emojis properties and methods
 * @extends Structure
-* @param {Object} client ArtzyCord's Client instance
+* @param {Client} client ArtzyCord's Client instance
 * @param {Object} data A valid Emoji data Object
 * @property {String} id Emoji's ID
 * @property {String} name Emoji's name

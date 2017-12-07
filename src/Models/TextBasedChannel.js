@@ -4,11 +4,11 @@ const constants = require('../Constants.js');
 const Constants = new constants();
 const EmbedMessage = require('../EmbedMessage.js');
 const Box = require('./Box.js');
-
+const Message = require('./Message.js')
 /**
 * A TextBasedChannel Structure meant to control over TextBasedChannel properties and methods
 * @extends Structure
-* @param {Object} client ArtzyCord's Client instance
+* @param {Client} client ArtzyCord's Client instance
 * @param {Object} channel A valid Text based channel data Object
 * @property {String} id Channel's ID
 * @property {Box} messages Box which contains message instances
@@ -55,15 +55,12 @@ class TextBasedChannel extends Structure {
 						 Constants.ENDPOINTS_CHANNELS.messages.create(this.id),
 						 payload
 					 );
-					 resolve(res);
+					 resolve(new Message(that.client, res));
 				} catch (e) {
 					reject(e)
 				}
 			} else {
 				let content = message;
-				if (options && options.tts) {
-
-				}
 				if (options && options.markup) {
 					content = `\`\`\`${options.markup}\n${content}\`\`\``
 				}
@@ -79,12 +76,10 @@ class TextBasedChannel extends Structure {
 						 Constants.ENDPOINTS_CHANNELS.messages.create(this.id),
 						 payload
 					 );
-					 resolve(res);
+					 resolve(new Message(that.client, res));
 				} catch (e) {
 					reject(e)
 				}
-
-
 			}
 		})
 	}

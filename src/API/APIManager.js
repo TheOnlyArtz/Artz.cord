@@ -40,22 +40,16 @@ class APIManager {
 				}
 
 				const timeout = Date.now() - this.ratelimit.retry;
-				new Promise((resolve, reject) => {
-					setTimeout(() => {
-						resolve;
-						reject;
-					}, Math.min(1000, timeout));
-				});
 			}
 
 			const RequestsTimeDifference = Date.now() - this.lastRequest;
 			if (RequestsTimeDifference > 1000) {
-				new Promise((resolve, reject) => {
-					setTimeout(() => {
-						resolve;
-						reject;
-					}, 1000);
-				});
+				// new Promise((resolve, reject) => {
+				// 	setTimeout(() => {
+				// 		resolve;
+				// 		reject;
+				// 	}, 1000);
+				// });
 
 				const item = this.queue.shift();
 				try {

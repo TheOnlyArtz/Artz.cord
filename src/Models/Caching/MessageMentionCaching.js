@@ -25,6 +25,12 @@ class MessageMentionCaching {
         }
       }
     }
+
+    if (everyone) {
+      this.everyone = true
+    } else {
+      this.everyone = false
+    }
   }
 }
 module.exports = MessageMentionCaching;

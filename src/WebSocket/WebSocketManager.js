@@ -21,6 +21,10 @@ class WebSocketManager extends EventEmitter {
       that.emit('WSclose', close)
     }
 
+    that.ws.close = () => {
+      setTimeout(() => {that.ws.close(1000)}, 1e3)
+    }
+
     that.ws.onmessage = (packet, flags) => {
       that.SocketHandler.handle(packet);
     }
