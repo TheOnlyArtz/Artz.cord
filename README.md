@@ -1,4 +1,4 @@
-# ArtzyCord
+# Artz.cord
 The most shittiest API *rapper out there.
 
 # Examples
