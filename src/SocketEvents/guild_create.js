@@ -8,7 +8,7 @@ const EmojisCaching = require(path.join(__dirname, '..', 'Models', 'Caching', 'E
 
 /**
 * Emits when the client joins a new guild
-* @event Client#Guild_Create
+* @event Client#guildCreate
 * @param {Guild} guild The new guild
 */
 class GuildCreateEvent extends Basic {
@@ -19,7 +19,7 @@ class GuildCreateEvent extends Basic {
   handle(packet) {
     let guild = new Guild(this.client, packet);
     this.client.guilds.set(guild.id, guild);
-    this.client.emit('Guild_Create', guild);
+    this.client.emit('guildCreate', guild);
 
     this.ChannelCaching = new ChannelCaching(this.client, this.client.guilds)._cache();
     this.PresenceCaching = new PresenceCaching(this.client, guild.presences.array())._cache();

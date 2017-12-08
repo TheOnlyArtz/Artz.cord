@@ -4,7 +4,7 @@ const ChannelCaching = require(path.join(__dirname, '..', 'Models', 'Caching' , 
 
 /**
 * Emits when a channel gets created
-* @event Client#Channel_Create
+* @event Client#channelCreate
 * @param {GuildTextChannel|VoiceChannel|GroupDM|DMChannel} channel The created channel
 */
 class ChannelCreate extends Basic {
@@ -15,7 +15,7 @@ class ChannelCreate extends Basic {
   handle(packet) {
     this.ChannelCaching = new ChannelCaching(this.client, packet).filterThroughTypes(packet)
     const newChannel = new ChannelCaching(this.client, packet).filterThroughTypesRAWDATA(packet)
-    this.client.emit('Channel_Create', newChannel);
+    this.client.emit('channelCreate', newChannel);
   }
 }
 module.exports = ChannelCreate

@@ -4,7 +4,7 @@ const Message = require(path.join(__dirname, '..', 'Models', 'Message.js'));
 
 /**
 * Emits when a message gets created
-* @event Client#Message_Create
+* @event Client#messageCreate
 * @param {Message} message The created message
 */
 class MessageCreateEvent extends Basic {
@@ -16,7 +16,7 @@ class MessageCreateEvent extends Basic {
     const MessageHandler = new Message(this.client, packet);
     const channel = this.client.channels.get(packet.channel_id)
     channel.messages.set(MessageHandler.id, MessageHandler)
-    this.client.emit('Message_Create', MessageHandler);
+    this.client.emit('messageCreate', MessageHandler);
   }
 }
 module.exports = MessageCreateEvent

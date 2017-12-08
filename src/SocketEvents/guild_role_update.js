@@ -4,7 +4,7 @@ const Role = require(path.join(__dirname, '..', 'Models', 'Role.js'));
 
 /**
 * Emits when a role gets updated
-* @event Client#Guild_Role_Update
+* @event Client#guildRoleUpdate
 * @param {Role} newRole The updated role
 * @param {Role} oldRole The old role
 */
@@ -18,8 +18,7 @@ class GuildRoleUpdate extends Basic {
     const OldRole = guild.roles.get(packet['role']['id'])
     if (guild) {
         guild.roles.set(packet.role.id, new Role(this.client, guild, packet['role']))
-        this.client.emit('Guild_Role_Update', guild.roles.get(packet['role']['id']), OldRole)
-        console.log(guild.roles.get(packet['role']['id']), OldRole);
+        this.client.emit('guildRoleUpdate', guild.roles.get(packet['role']['id']), OldRole)
     }
   }
 }

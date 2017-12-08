@@ -4,7 +4,7 @@ const Guild = require('../Models/Guild.js')
 
 /**
 * Emits when the client joins a new guild
-* @event Client#Guild_Update
+* @event Client#guildUpdate
 * @param {Guild} guild The new guild
 */
 class Guild_Update extends Basic {
@@ -15,7 +15,7 @@ class Guild_Update extends Basic {
     let old = this.client.guilds.get(packet.id)
     let oldGuild = Object.assign(Object.create(old), old);
     let newGuild = this.client.guilds.get(packet.id).patchRaw(packet)
-    this.client.emit('Guild_Update', newGuild, oldGuild)
+    this.client.emit('guildUpdate', newGuild, oldGuild)
   }
 }
 

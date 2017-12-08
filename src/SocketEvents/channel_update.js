@@ -4,7 +4,7 @@ const ChannelCaching = require('../Models/Caching/ChannelCaching.js')
 
 /**
 * Emits when a channel gets updated
-* @event Client#Channel_Update
+* @event Client#channelUpdate
 * @param {GuildTextChannel|VoiceChannel|GroupDM|DMChannel} newChannel The updated channel
 * @param {GuildTextChannel|VoiceChannel|GroupDM|DMChannel} oldChannel The old channel
 */
@@ -18,7 +18,7 @@ class Channel_Update extends Basic {
     if (guild) {
       guild.channels.set(packet.id, new ChannelCaching(this.client).filterThroughTypesRAWDATA(packet))
       let newChannel = guild.channels.get(packet.id)
-      this.client.emit('Channel_Update', newChannel, oldChannel);
+      this.client.emit('channelUpdate', newChannel, oldChannel);
     }
   }
 }
